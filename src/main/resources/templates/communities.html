@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Communities</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <div th:if="${not #lists.isEmpty(communities)}">
+        <h2>Community List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>NIF</th>
+                <th>Name</th>
+                <th>City Name</th>
+                <th>City Postal Code</th>
+                <th>Address</th>
+                <th>View</th>
+                <th>Edit</th>
+            </tr>
+            <tr th:each="community : ${communities}">
+                <td th:text="${community.id}"><a href="/invoice/${invoice.id}">Id</a></td>
+                <td th:text="${community.nif}">Product Id</td>
+                <td th:text="${community.name}">Customer</td>
+                <td th:text="${community.city.name}">City Name</td>
+                <td th:text="${community.city.postalcode}">City Postal Code</td>
+                <td th:text="${community.address}">Address</td>
+
+                <td><a th:href="${ '/community/' + community.id}">View</a></td>
+                <td><a th:href="${'/community/edit/' + community.id}">Edit</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
