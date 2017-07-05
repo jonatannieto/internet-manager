@@ -50,14 +50,14 @@ public class CommunityController {
     public String newInvoice(Model model){
         model.addAttribute("community", new Community());
         model.addAttribute("cities", cityService.listAllCity());
-        return "communityformNew";
+        return "communityform";
     }
 
     @RequestMapping(value = "community/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("community", communityService.getCommunityById(id));
         model.addAttribute("cities", cityService.listAllCity());
-        return "communityformNew";
+        return "communityform";
     }
 
     @RequestMapping(value = "community", method = RequestMethod.POST)
