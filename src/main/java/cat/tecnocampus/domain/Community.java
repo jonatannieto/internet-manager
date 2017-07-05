@@ -1,6 +1,10 @@
 package cat.tecnocampus.domain;
 
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by internet-manager on 11/04/17.
@@ -25,6 +29,9 @@ public class Community {
     @OneToOne
     private City city;
 
+    @OneToMany
+    private List<Resident> residents;
+
     private String address;
 
     public Community() {}
@@ -34,6 +41,7 @@ public class Community {
         this.name = name;
         this.city = city;
         this.address = address;
+        this.residents = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -82,5 +90,13 @@ public class Community {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Resident> getResidents() {
+        return residents;
+    }
+
+    public void addResident(Resident resident) {
+        this.residents.add(resident);
     }
 }
