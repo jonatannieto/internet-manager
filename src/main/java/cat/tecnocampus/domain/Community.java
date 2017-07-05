@@ -25,6 +25,7 @@ public class Community {
     @OneToOne
     private City city;
 
+
     private String address;
 
     public Community() {}
