@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by Jonatan on 10/07/2017.
+ * Created by Internet-Manager on 10/07/2017.
  */
 @Service
 public class ContractServiceImpl implements ContractService {

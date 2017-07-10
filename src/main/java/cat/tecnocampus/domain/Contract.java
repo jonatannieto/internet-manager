@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Jonatan on 10/07/2017.
+ * Created by Internet-Manager on 10/07/2017.
  */
 @Entity
 public class Contract {

@@ -3,7 +3,7 @@ package cat.tecnocampus.services;
 import cat.tecnocampus.domain.Contract;
 
 /**
- * Created by Jonatan on 10/07/2017.
+ * Created by Internet-Manager on 10/07/2017.
  */
 public interface ContractService {
     Iterable<Contract> listAllContracts();
