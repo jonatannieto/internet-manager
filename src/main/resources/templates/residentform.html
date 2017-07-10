@@ -75,20 +75,13 @@
                   <input type="text" class="form-control" th:field="*{email}"/>
                 </div>
 
-
-                <!--<div class="form-group">
-                  <label>Resident:</label>
-                  <select class="form-control" th:field="*{resident}" th:remove="all-but-first">
-                    <option th:each="resident : ${residents}"
-                            th:value="${community.resident}" th:text="${community.resident}">Resident</option>
+                <div class="form-group">
+                  <label>Community:</label>
+                  <select class="form-control" th:field="*{communityId}" th:remove="all-but-first">
+                    <option th:each="community : ${communities}"
+                            th:value="${community.id}" th:text="${community.name}">Community</option>
                   </select>
-                </div>-->
-
-
-
-
-
-
+                </div>
               </div>
               <!-- /.box-body -->
 

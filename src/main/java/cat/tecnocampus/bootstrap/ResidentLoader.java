@@ -1,6 +1,5 @@
 package cat.tecnocampus.bootstrap;
 
-import cat.tecnocampus.respositories.LandAgentRepository;
 import cat.tecnocampus.respositories.ResidentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ResidentLoader implements ApplicationListener<ContextRefreshedEvent> {
-    private LandAgentRepository landAgentRepository;
     private ResidentRepository residentRepository;
     private Logger log = Logger.getLogger(ResidentLoader.class);
 
     @Autowired
-    public ResidentLoader(ResidentRepository residentRepository, LandAgentRepository landAgentRepository) {
-        this.landAgentRepository = landAgentRepository;
+    public ResidentLoader(ResidentRepository residentRepository) {
         this.residentRepository = residentRepository;
     }
 

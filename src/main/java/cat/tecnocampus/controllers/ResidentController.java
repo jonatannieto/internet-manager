@@ -43,13 +43,13 @@ public class ResidentController {
     @RequestMapping("resident/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("resident", residentService.getResidentById(id));
+        model.addAttribute("community", communityService.getCommunityById(residentService.getResidentById(id).getCommunityId()));
         log.info("Returning resident: " + id);
         return "residentshow";
     }
 
     @RequestMapping(value = "resident/new")
     public String newInvoice(Model model){
-      //  model.addAttribute("resident", residentService.listAllResident());
         model.addAttribute("resident",  new Resident());
         model.addAttribute("communities", communityService.listAllCommunity());
 
@@ -59,6 +59,8 @@ public class ResidentController {
     @RequestMapping(value = "resident/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("resident", residentService.getResidentById(id));
+        model.addAttribute("communities", communityService.listAllCommunity());
+
         return "residentform";
     }
 

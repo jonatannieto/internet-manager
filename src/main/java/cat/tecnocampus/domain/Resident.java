@@ -34,13 +34,11 @@ public class Resident {
 
     private String phone;
 
-
-
     private String email;
 
-    public Resident() {
-    }
+    private Integer communityId;
 
+    public Resident() {}
 
     public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email) {
         this.nif = nif;
@@ -53,7 +51,6 @@ public class Resident {
         this.phone = phone;
         this.email = email;
     }
-
 
     public Integer getId() {
         return id;
@@ -127,8 +124,6 @@ public class Resident {
         this.stairsRoute = stairsRoute;
     }
 
-
-
     public String getPhone() {
         return phone;
     }
@@ -145,6 +140,12 @@ public class Resident {
         this.email = email;
     }
 
+    public Integer getCommunityId() {
+        return communityId;
+    }
 
+    public void setCommunityId(Integer communityId) {
+        this.communityId = communityId;
+    }
 }
 

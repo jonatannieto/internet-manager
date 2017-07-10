@@ -57,9 +57,6 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" );
         Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com");
 
-
-
-
         log.info("Saving resident " + resident1.getName());
         residentRepository.save(resident1);
 
