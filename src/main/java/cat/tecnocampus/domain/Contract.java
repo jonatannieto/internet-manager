@@ -23,16 +23,18 @@ public class Contract {
 
     private Double monthlyPrice;
 
-    private Integer communityId;
+    @ManyToOne
+    @JoinColumn(name="community_id", nullable=false)
+    private Community community;
 
     public Contract() {}
 
-    public Contract(String name, Date dateStart, Boolean active, Double monthlyPrice, Integer communityId) {
+    public Contract(String name, Date dateStart, Boolean active, Double monthlyPrice, Community community) {
         this.name = name;
         this.dateStart = dateStart;
         this.active = active;
         this.monthlyPrice = monthlyPrice;
-        this.communityId = communityId;
+        this.community = community;
     }
 
     public Integer getId() {
@@ -75,12 +77,12 @@ public class Contract {
         this.active = active;
     }
 
-    public Integer getCommunityId() {
-        return communityId;
+    public Community getCommunity() {
+        return community;
     }
 
-    public void setCommunityId(Integer communityId) {
-        this.communityId = communityId;
+    public void setCommunity(Community communityId) {
+        this.community = communityId;
     }
 
     public Double getMonthlyPrice() {

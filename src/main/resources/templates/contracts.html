@@ -58,7 +58,7 @@
                   <td th:text="${contract.id}"><a href="/contract/${contract.id}">Id</a></td>
                   <td th:text="${contract.name}">Contract Name</td>
                   <td th:text="${contract.dateStart}">Date Start</td>
-                  <td th:text="${contract.communityId}">Community Id</td>
+                  <td th:text="${contract.community.name}">Community Id</td>
                   <td th:text="${contract.active}">Active</td>
 
                   <td><a th:href="${ '/contract/' + contract.id}">View</a></td>

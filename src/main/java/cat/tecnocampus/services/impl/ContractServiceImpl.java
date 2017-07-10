@@ -1,5 +1,6 @@
 package cat.tecnocampus.services.impl;
 
+import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.respositories.ContractRepository;
 import cat.tecnocampus.services.CommunityService;
@@ -29,12 +30,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract save(Contract contract) {
-        contractRepository.save(contract);
-        if(null!=contract.getCommunityId()){
-            communityService.addContract(contract.getCommunityId(), contract);
-        }
-
-        return contract;
+        return contractRepository.save(contract);
     }
 
     @Override

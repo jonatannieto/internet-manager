@@ -83,10 +83,9 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         cal.set( cal.MONTH, cal.JULY );
         cal.set( cal.DATE, 1 );
 
-        Contract contract1 = new Contract("Fibra 200MB", new Date(cal.getTime().getTime()), true, 57.99, community1.getId());
+        Contract contract1 = new Contract("Fibra 200MB", new Date(cal.getTime().getTime()), true, 57.99, community1);
 
         contractRepository.save(contract1);
-
         community1.addContract(contract1);
 
         communityRepository.save(community1);

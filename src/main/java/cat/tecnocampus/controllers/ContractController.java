@@ -43,7 +43,6 @@ public class ContractController {
     @RequestMapping("contract/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("contract", contractService.getContractById(id));
-        model.addAttribute("community", communityService.getCommunityById(contractService.getContractById(id).getCommunityId()));
         log.info("Returning contract: " + id);
         return "contractshow";
     }

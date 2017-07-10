@@ -34,7 +34,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" th:object="${residentList}" th:action="@{/residentList}" method="post">
+            <form role="form" th:object="${resident}" th:action="@{/resident}" method="post">
               <input type="hidden" th:field="*{id}"/>
               <input type="hidden" th:field="*{version}"/>
               <div class="box-body">
