@@ -1,6 +1,7 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ResidentController {
     private ResidentService residentService;
+    private CommunityService communityService;
 
     private Logger log = Logger.getLogger(ResidentController.class);
 
     /* La inyección de dependencias hacen que entre las capas no se acople el código, el FW ya se encarga de inyectar el
      * servicio que toca en cada caso, seguimos la D de los principios SOLID, donde inyectamos interfaces, no implementaciones.*/
     @Autowired
-    public ResidentController(ResidentService residentService) {
+    public ResidentController(ResidentService residentService, CommunityService communityService) {
         this.residentService = residentService;
+        this.communityService = communityService;
     }
 
     /* RequestMapping indica la uri(path) que invoca este método y de que [tipo] debe ser */
@@ -46,8 +49,11 @@ public class ResidentController {
 
     @RequestMapping(value = "resident/new")
     public String newInvoice(Model model){
-        model.addAttribute("resident", residentService.listAllResident());
-        return "communityform";
+      //  model.addAttribute("resident", residentService.listAllResident());
+        model.addAttribute("resident",  new Resident());
+        model.addAttribute("communities", communityService.listAllCommunity());
+
+        return "residentform";
     }
 
     @RequestMapping(value = "resident/edit/{id}")
@@ -56,9 +62,10 @@ public class ResidentController {
         return "residentform";
     }
 
-    @RequestMapping(value = "resident", method = RequestMethod.POST)
+    @RequestMapping(value = "resident", method = RequestMethod.POST )
     public String create(Resident resident){
         residentService.save(resident);
+
         return "redirect:/resident/" + resident.getId();
     }
 }

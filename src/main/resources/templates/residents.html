@@ -13,11 +13,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Communities
+        Residents
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="#">Communities</a></li>
+        <li class="active"><a href="#">Residents</a></li>
       </ol>
     </section>
 
@@ -30,7 +30,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Listado</h3>
-              <button onclick="window.location.href='/community/new'" class="btn btn-primary">New</button>
+              <button onclick="window.location.href='/resident/new'" class="btn btn-primary">New</button>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -49,23 +49,31 @@
                   <th>Id</th>
                   <th>NIF</th>
                   <th>Name</th>
-                  <th>City Name</th>
-                  <th>City Postal Code</th>
-                  <th>Address</th>
-                  <th>View</th>
-                  <th>Edit</th>
+                  <th>Surname</th>
+                  <th>Second Surname</th>
+                  <th>Floor</th>
+                  <th>Door</th>
+                  <th>Stairs Route</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+
                 </tr>
 
-                <tr th:each="community : ${communities}">
-                  <td th:text="${community.id}"><a href="/invoice/${invoice.id}">Id</a></td>
-                  <td th:text="${community.nif}">Product Id</td>
-                  <td th:text="${community.name}">Customer</td>
-                  <td th:text="${community.city.name}">City Name</td>
-                  <td th:text="${community.city.postalcode}">City Postal Code</td>
-                  <td th:text="${community.address}">Address</td>
+                <tr th:each="resident : ${residents}">
+                  <td th:text="${resident.id}"><a href="/invoice/${invoice.id}">Id</a></td>
+                  <td th:text="${resident.nif}">NIF</td>
+                  <td th:text="${resident.name}">Resident Name</td>
+                  <td th:text="${resident.surname}">Resident Surname</td>
+                  <td th:text="${resident.secondSurname}">Resident Second Surname</td>
+                  <td th:text="${resident.floor}">Floor</td>
+                  <td th:text="${resident.door}">Door</td>
+                  <td th:text="${resident.stairsRoute}">Stairs Route</td>
+                  <td th:text="${resident.phone}">Phone</td>
+                  <td th:text="${resident.email}">email</td>
 
-                  <td><a th:href="${ '/community/' + community.id}">View</a></td>
-                  <td><a th:href="${'/community/edit/' + community.id}">Edit</a></td>
+
+                  <td><a th:href="${ '/resident/' + resident.id}">View</a></td>
+                  <td><a th:href="${'/resident/edit/' + resident.id}">Edit</a></td>
                 </tr>
               </table>
             </div>

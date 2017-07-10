@@ -2,8 +2,10 @@ package cat.tecnocampus.bootstrap;
 
 import cat.tecnocampus.domain.City;
 import cat.tecnocampus.domain.Community;
+import cat.tecnocampus.domain.Resident;
 import cat.tecnocampus.respositories.CityRepository;
 import cat.tecnocampus.respositories.CommunityRepository;
+import cat.tecnocampus.respositories.ResidentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -17,12 +19,15 @@ import org.springframework.stereotype.Component;
 public class CommunityLoader implements ApplicationListener<ContextRefreshedEvent> {
     private CityRepository cityRepository;
     private CommunityRepository communityRepository;
+    private ResidentRepository residentRepository;
     private Logger log = Logger.getLogger(CommunityLoader.class);
 
     @Autowired
-    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository) {
+    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ResidentRepository residentRepository) {
         this.cityRepository = cityRepository;
         this.communityRepository = communityRepository;
+        this.residentRepository = residentRepository;
+
     }
 
     @Override
@@ -48,5 +53,22 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         communityRepository.save(community1);
         log.info("Saving community " + community2.getName());
         communityRepository.save(community2);
+
+        Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" );
+        Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com");
+
+
+
+
+        log.info("Saving resident " + resident1.getName());
+        residentRepository.save(resident1);
+
+        log.info("Saving resident " + resident2.getName());
+        residentRepository.save(resident2);
+
+        community1.addResident(resident1);
+        community1.addResident(resident2);
+
+        communityRepository.save(community1);
     }
 }
