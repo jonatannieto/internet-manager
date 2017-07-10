@@ -77,7 +77,7 @@
 
                 <div class="form-group">
                   <label>Community:</label>
-                  <select class="form-control" th:field="*{communityId}" th:remove="all-but-first">
+                  <select class="form-control" th:field="*{community}" th:remove="all-but-first">
                     <option th:each="community : ${communities}"
                             th:value="${community.id}" th:text="${community.name}">Community</option>
                   </select>

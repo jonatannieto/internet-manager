@@ -43,7 +43,7 @@ public class ResidentController {
     @RequestMapping("resident/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("resident", residentService.getResidentById(id));
-        model.addAttribute("community", communityService.getCommunityById(residentService.getResidentById(id).getCommunityId()));
+        model.addAttribute("community", communityService.getCommunityById(residentService.getResidentById(id).getCommunity().getId()));
         log.info("Returning resident: " + id);
         return "residentshow";
     }

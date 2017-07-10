@@ -29,11 +29,7 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     public Resident save(Resident resident) {
-        residentRepository.save(resident);
-        if(null!=resident.getCommunityId()){
-            communityService.addResident(resident.getCommunityId(), resident);
-        }
-        return resident;
+        return residentRepository.save(resident);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class Community {
     @OneToOne
     private City city;
 
-    @OneToMany
+    @OneToMany(mappedBy = "community")
     private List<Resident> residentList;
 
     @OneToMany(mappedBy = "community")

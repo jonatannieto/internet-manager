@@ -36,11 +36,13 @@ public class Resident {
 
     private String email;
 
-    private Integer communityId;
+    @ManyToOne
+    @JoinColumn(name="community_id", nullable=false)
+    private Community community;
 
     public Resident() {}
 
-    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Integer communityId) {
+    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community) {
         this.nif = nif;
         this.name = name;
         this.surname = surname;
@@ -50,7 +52,7 @@ public class Resident {
         this.stairsRoute = stairsRoute;
         this.phone = phone;
         this.email = email;
-        this.communityId = communityId;
+        this.community = community;
     }
 
     public Integer getId() {
@@ -141,12 +143,12 @@ public class Resident {
         this.email = email;
     }
 
-    public Integer getCommunityId() {
-        return communityId;
+    public Community getCommunity() {
+        return community;
     }
 
-    public void setCommunityId(Integer communityId) {
-        this.communityId = communityId;
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 }
 
