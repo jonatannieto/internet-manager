@@ -27,7 +27,7 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
     private Logger log = Logger.getLogger(CommunityLoader.class);
 
     @Autowired
-    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository, , ResidentRepository residentRepository) {
+    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository, ResidentRepository residentRepository) {
         this.cityRepository = cityRepository;
         this.communityRepository = communityRepository;
         this.providerRepository = providerRepository;
