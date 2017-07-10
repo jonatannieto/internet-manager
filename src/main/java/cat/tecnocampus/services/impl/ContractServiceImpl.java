@@ -2,6 +2,7 @@ package cat.tecnocampus.services.impl;
 
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.respositories.ContractRepository;
+import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Service;
 public class ContractServiceImpl implements ContractService {
 
     private ContractRepository contractRepository;
+    private CommunityService communityService;
 
     @Autowired
-    public ContractServiceImpl(ContractRepository contractRepository) {
+    public ContractServiceImpl(ContractRepository contractRepository, CommunityService communityService) {
         this.contractRepository = contractRepository;
+        this.communityService = communityService;
     }
 
     @Override
@@ -26,7 +29,12 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract save(Contract contract) {
-        return contractRepository.save(contract);
+        contractRepository.save(contract);
+        if(null!=contract.getCommunityId()){
+            communityService.addContract(contract.getCommunityId(), contract);
+        }
+
+        return contract;
     }
 
     @Override

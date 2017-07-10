@@ -49,6 +49,7 @@
                   <th>Name</th>
                   <th>Date Start</th>
                   <th>Community</th>
+                  <th>Active</th>
                   <th>View</th>
                   <th>Edit</th>
                 </tr>
@@ -58,6 +59,7 @@
                   <td th:text="${contract.name}">Contract Name</td>
                   <td th:text="${contract.dateStart}">Date Start</td>
                   <td th:text="${contract.communityId}">Community Id</td>
+                  <td th:text="${contract.active}">Active</td>
 
                   <td><a th:href="${ '/contract/' + contract.id}">View</a></td>
                   <td><a th:href="${'/contract/edit/' + contract.id}">Edit</a></td>
