@@ -1,13 +1,11 @@
 package cat.tecnocampus.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 /**
  * Created by internet-manager on 10/07/2017.
  */
+@Entity
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +21,12 @@ public class Provider {
     private ProviderType type;
 
     public Provider() {}
+
+    public Provider(String nif, String name, ProviderType type) {
+        this.nif = nif;
+        this.name = name;
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;

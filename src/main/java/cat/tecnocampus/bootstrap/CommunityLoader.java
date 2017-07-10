@@ -2,8 +2,11 @@ package cat.tecnocampus.bootstrap;
 
 import cat.tecnocampus.domain.City;
 import cat.tecnocampus.domain.Community;
+import cat.tecnocampus.domain.Provider;
+import cat.tecnocampus.domain.ProviderType;
 import cat.tecnocampus.respositories.CityRepository;
 import cat.tecnocampus.respositories.CommunityRepository;
+import cat.tecnocampus.respositories.ProviderRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -17,13 +20,14 @@ import org.springframework.stereotype.Component;
 public class CommunityLoader implements ApplicationListener<ContextRefreshedEvent> {
     private CityRepository cityRepository;
     private CommunityRepository communityRepository;
+    private ProviderRepository providerRepository;
     private Logger log = Logger.getLogger(CommunityLoader.class);
 
     @Autowired
-    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository) {
+    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository) {
         this.cityRepository = cityRepository;
-
         this.communityRepository = communityRepository;
+        this.providerRepository = providerRepository;
     }
 
     @Override
@@ -49,5 +53,11 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         communityRepository.save(community1);
         log.info("Saving community " + community2.getName());
         communityRepository.save(community2);
+
+        Provider provider1 = new Provider("A82018474", "Telefónica Movistar", ProviderType.OPTICAL_FIBER);
+        Provider provider2 = new Provider("B63785372", "Netflix", ProviderType.SATELIT);
+
+        providerRepository.save(provider1);
+        providerRepository.save(provider2);
     }
 }
