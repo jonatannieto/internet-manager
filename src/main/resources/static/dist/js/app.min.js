@@ -4,7 +4,7 @@
  * should be included in all pages. It controls some layout
  * options and implements exclusive AdminLTE plugins.
  *
- * @Author  Lepsec
+ * @Author  Tecnocampus
  * @Support <http://www.almsaeedstudio.com>
  * @Email   <abdullah@almsaeedstudio.com>
  * @version 2.3.7
