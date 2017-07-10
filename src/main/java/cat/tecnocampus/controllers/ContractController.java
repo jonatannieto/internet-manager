@@ -1,8 +1,8 @@
 package cat.tecnocampus.controllers;
 
-import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.services.CommunityService;
-import cat.tecnocampus.services.ResidentService;
+import cat.tecnocampus.services.ContractService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,58 +16,57 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by internet-manager on 11/04/17.
  */
 @Controller
-public class ResidentController {
-    private ResidentService residentService;
+public class ContractController {
+    private ContractService contractService;
     private CommunityService communityService;
 
-    private Logger log = Logger.getLogger(ResidentController.class);
+    private Logger log = Logger.getLogger(ContractController.class);
 
     /* La inyección de dependencias hacen que entre las capas no se acople el código, el FW ya se encarga de inyectar el
      * servicio que toca en cada caso, seguimos la D de los principios SOLID, donde inyectamos interfaces, no implementaciones.*/
     @Autowired
-    public ResidentController(ResidentService residentService, CommunityService communityService) {
-        this.residentService = residentService;
+    public ContractController(ContractService contractService, CommunityService communityService) {
+        this.contractService = contractService;
         this.communityService = communityService;
     }
 
     /* RequestMapping indica la uri(path) que invoca este método y de que [tipo] debe ser */
-    @RequestMapping(value = "/residents", method = RequestMethod.GET)
+    @RequestMapping(value = "/contracts", method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
-        modelAndView.addObject("residents", residentService.listAllResident());
-        modelAndView.setViewName("residents");
-        log.info("Returning residents.");
+        modelAndView.addObject("contracts", contractService.listAllContracts());
+        modelAndView.setViewName("contracts");
+        log.info("Returning contracts.");
         return modelAndView;
     }
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
-    @RequestMapping("resident/{id}")
+    @RequestMapping("contract/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("resident", residentService.getResidentById(id));
-        model.addAttribute("community", communityService.getCommunityById(residentService.getResidentById(id).getCommunity().getId()));
-        log.info("Returning resident: " + id);
-        return "residentshow";
+        model.addAttribute("contract", contractService.getContractById(id));
+        log.info("Returning contract: " + id);
+        return "contractshow";
     }
 
-    @RequestMapping(value = "resident/new")
+    @RequestMapping(value = "contract/new")
     public String newInvoice(Model model){
-        model.addAttribute("resident",  new Resident());
+        model.addAttribute("contract",  new Contract());
         model.addAttribute("communities", communityService.listAllCommunity());
 
-        return "residentform";
+        return "contractform";
     }
 
-    @RequestMapping(value = "resident/edit/{id}")
+    @RequestMapping(value = "contract/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("resident", residentService.getResidentById(id));
+        model.addAttribute("contract", contractService.getContractById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
 
-        return "residentform";
+        return "contractform";
     }
 
-    @RequestMapping(value = "resident", method = RequestMethod.POST )
-    public String create(Resident resident){
-        residentService.save(resident);
+    @RequestMapping(value = "contract", method = RequestMethod.POST )
+    public String create(Contract contract){
+        contractService.save(contract);
 
-        return "redirect:/resident/" + resident.getId();
+        return "redirect:/contract/" + contract.getId();
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
  * Created by internet-manager on 11/04/17.
  */
 @Entity
+@Table(name = "community")
 public class Community {
     /* Indicamos a Spring-Data (JPA) que este campo es un campo ID en Base de datos */
     /* Indicamos a Spring-Data (JPA) que es autoincrement */
@@ -27,8 +28,11 @@ public class Community {
     @OneToOne
     private City city;
 
-    @OneToMany
+    @OneToMany(mappedBy = "community")
     private List<Resident> residentList;
+
+    @OneToMany(mappedBy = "community")
+    private List<Contract> contractList;
 
     private String address;
 
@@ -40,6 +44,7 @@ public class Community {
         this.city = city;
         this.address = address;
         this.residentList = new ArrayList<>();
+        this.contractList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -100,5 +105,17 @@ public class Community {
 
     public void addResident(Resident resident) {
         this.residentList.add(resident);
+    }
+
+    public void addContract(Contract contract) {
+        this.contractList.add(contract);
+    }
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
     }
 }

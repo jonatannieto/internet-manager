@@ -34,7 +34,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" th:object="${residentList}" th:action="@{/residentList}" method="post">
+            <form role="form" th:object="${resident}" th:action="@{/resident}" method="post">
               <input type="hidden" th:field="*{id}"/>
               <input type="hidden" th:field="*{version}"/>
               <div class="box-body">
@@ -77,7 +77,7 @@
 
                 <div class="form-group">
                   <label>Community:</label>
-                  <select class="form-control" th:field="*{communityId}" th:remove="all-but-first">
+                  <select class="form-control" th:field="*{community}" th:remove="all-but-first">
                     <option th:each="community : ${communities}"
                             th:value="${community.id}" th:text="${community.name}">Community</option>
                   </select>

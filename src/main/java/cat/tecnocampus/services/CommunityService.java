@@ -1,6 +1,7 @@
 package cat.tecnocampus.services;
 
 import cat.tecnocampus.domain.Community;
+import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Resident;
 
 /**
@@ -15,4 +16,6 @@ public interface CommunityService {
     Community getCommunityById(Integer id);
 
     void addResident(Integer id, Resident resident);
+
+    void addContract(Integer communityId, Contract contract);
 }
