@@ -29,8 +29,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Listado</h3>
-              <button onclick="window.location.href='/resident/new'" class="btn btn-primary">New</button>
+              <button onclick="window.location.href='/residentList/new'" class="btn btn-primary">New</button>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -59,21 +58,21 @@
 
                 </tr>
 
-                <tr th:each="resident : ${residents}">
-                  <td th:text="${resident.id}"><a href="/invoice/${invoice.id}">Id</a></td>
-                  <td th:text="${resident.nif}">NIF</td>
-                  <td th:text="${resident.name}">Resident Name</td>
-                  <td th:text="${resident.surname}">Resident Surname</td>
-                  <td th:text="${resident.secondSurname}">Resident Second Surname</td>
-                  <td th:text="${resident.floor}">Floor</td>
-                  <td th:text="${resident.door}">Door</td>
-                  <td th:text="${resident.stairsRoute}">Stairs Route</td>
-                  <td th:text="${resident.phone}">Phone</td>
-                  <td th:text="${resident.email}">email</td>
+                <tr th:each="residentList : ${residents}">
+                  <td th:text="${residentList.id}"><a href="/invoice/${invoice.id}">Id</a></td>
+                  <td th:text="${residentList.nif}">NIF</td>
+                  <td th:text="${residentList.name}">Resident Name</td>
+                  <td th:text="${residentList.surname}">Resident Surname</td>
+                  <td th:text="${residentList.secondSurname}">Resident Second Surname</td>
+                  <td th:text="${residentList.floor}">Floor</td>
+                  <td th:text="${residentList.door}">Door</td>
+                  <td th:text="${residentList.stairsRoute}">Stairs Route</td>
+                  <td th:text="${residentList.phone}">Phone</td>
+                  <td th:text="${residentList.email}">email</td>
 
 
-                  <td><a th:href="${ '/resident/' + resident.id}">View</a></td>
-                  <td><a th:href="${'/resident/edit/' + resident.id}">Edit</a></td>
+                  <td><a th:href="${ '/residentList/' + residentList.id}">View</a></td>
+                  <td><a th:href="${'/residentList/edit/' + residentList.id}">Edit</a></td>
                 </tr>
               </table>
             </div>

@@ -27,7 +27,6 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         this.cityRepository = cityRepository;
         this.communityRepository = communityRepository;
         this.residentRepository = residentRepository;
-
     }
 
     @Override

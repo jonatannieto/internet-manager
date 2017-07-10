@@ -28,7 +28,7 @@ public class Community {
     private City city;
 
     @OneToMany
-    private List<Resident> resident;
+    private List<Resident> residentList;
 
     private String address;
 
@@ -39,7 +39,7 @@ public class Community {
         this.name = name;
         this.city = city;
         this.address = address;
-        this.resident = new ArrayList<>();
+        this.residentList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -90,15 +90,15 @@ public class Community {
         this.address = address;
     }
 
-    public List<Resident> getResident() {
-        return resident;
+    public List<Resident> getResidentList() {
+        return residentList;
     }
 
-    public void setResident(List<Resident> resident) {
-        this.resident = resident;
+    public void setResidentList(List<Resident> residentList) {
+        this.residentList = residentList;
     }
 
     public void addResident(Resident resident) {
-        this.resident.add(resident);
+        this.residentList.add(resident);
     }
 }
