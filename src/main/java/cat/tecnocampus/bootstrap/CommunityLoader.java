@@ -59,7 +59,7 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         communityRepository.save(community2);
 
         Provider provider1 = new Provider("A82018474", "Telefónica Movistar", ProviderType.OPTICAL_FIBER);
-        Provider provider2 = new Provider("B63785372", "Netflix", ProviderType.SATELIT);
+        Provider provider2 = new Provider("B63785372", "Netflix", ProviderType.TELEVISION);
 
         providerRepository.save(provider1);
         providerRepository.save(provider2);
