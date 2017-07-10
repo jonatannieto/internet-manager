@@ -1,6 +1,7 @@
 package cat.tecnocampus.services.impl;
 
 import cat.tecnocampus.domain.Community;
+import cat.tecnocampus.domain.Resident;
 import cat.tecnocampus.respositories.CommunityRepository;
 import cat.tecnocampus.services.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,12 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public Community getCommunityById(Integer id) {
         return communityRepository.findOne(id);
+    }
+
+    @Override
+    public void addResident(Integer id, Resident resident) {
+        Community community = communityRepository.findOne(id);
+        community.addResident(resident);
+        communityRepository.save(community);
     }
 }

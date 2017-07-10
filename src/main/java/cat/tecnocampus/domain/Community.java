@@ -1,6 +1,8 @@
 package cat.tecnocampus.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by internet-manager on 11/04/17.
@@ -25,6 +27,9 @@ public class Community {
     @OneToOne
     private City city;
 
+    @OneToMany
+    private List<Resident> residentList;
+
     private String address;
 
     public Community() {}
@@ -34,6 +39,7 @@ public class Community {
         this.name = name;
         this.city = city;
         this.address = address;
+        this.residentList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -82,5 +88,17 @@ public class Community {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Resident> getResidentList() {
+        return residentList;
+    }
+
+    public void setResidentList(List<Resident> residentList) {
+        this.residentList = residentList;
+    }
+
+    public void addResident(Resident resident) {
+        this.residentList.add(resident);
     }
 }
