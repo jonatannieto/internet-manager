@@ -1,6 +1,7 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Provider;
+import cat.tecnocampus.domain.ProviderType;
 import cat.tecnocampus.services.CityService;
 import cat.tecnocampus.services.ProviderService;
 import org.apache.log4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by internet-manager on 11/04/17.
@@ -35,7 +38,7 @@ public class ProviderController {
 
     @RequestMapping("provider/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("Provider", providerService.getProviderById(id));
+        model.addAttribute("provider", providerService.getProviderById(id));
         log.info("Returning Provider: " + id);
         return "providershow";
     }
@@ -43,12 +46,14 @@ public class ProviderController {
     @RequestMapping(value = "provider/new")
     public String newInvoice(Model model){
         model.addAttribute("provider", new Provider());
+        model.addAttribute("providerTypes", providerService.getProviderTypes());
         return "providerform";
     }
 
     @RequestMapping(value = "provider/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("provider", providerService.getProviderById(id));
+        model.addAttribute("providerTypes", providerService.getProviderTypes());
         return "providerform";
     }
 
