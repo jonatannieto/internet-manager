@@ -1,19 +1,15 @@
 package cat.tecnocampus.bootstrap;
 
-import cat.tecnocampus.domain.City;
-import cat.tecnocampus.domain.Community;
-import cat.tecnocampus.domain.Provider;
-import cat.tecnocampus.domain.ProviderType;
-import cat.tecnocampus.domain.Resident;
-import cat.tecnocampus.respositories.CityRepository;
-import cat.tecnocampus.respositories.CommunityRepository;
-import cat.tecnocampus.respositories.ProviderRepository;
-import cat.tecnocampus.respositories.ResidentRepository;
+import cat.tecnocampus.domain.*;
+import cat.tecnocampus.respositories.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by internet-manager on 29/3/17.
@@ -24,14 +20,18 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
     private CommunityRepository communityRepository;
     private ProviderRepository providerRepository;
     private ResidentRepository residentRepository;
+    private ContractRepository contractRepository;
+
     private Logger log = Logger.getLogger(CommunityLoader.class);
 
     @Autowired
-    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository, ResidentRepository residentRepository) {
+    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository, ResidentRepository residentRepository,
+                            ContractRepository contractRepository) {
         this.cityRepository = cityRepository;
         this.communityRepository = communityRepository;
         this.providerRepository = providerRepository;
         this.residentRepository = residentRepository;
+        this.contractRepository = contractRepository;
     }
 
     @Override
@@ -64,8 +64,8 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         providerRepository.save(provider1);
         providerRepository.save(provider2);
 
-        Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" );
-        Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com");
+        Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" , community1.getId());
+        Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com", community1.getId());
 
         log.info("Saving resident " + resident1.getName());
         residentRepository.save(resident1);
@@ -75,6 +75,19 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
 
         community1.addResident(resident1);
         community1.addResident(resident2);
+
+        Calendar cal = Calendar.getInstance();
+
+        // set Date portion to January 1, 1970
+        cal.set( cal.YEAR, 2017 );
+        cal.set( cal.MONTH, cal.JULY );
+        cal.set( cal.DATE, 1 );
+
+        Contract contract1 = new Contract("Fibra 200MB", new Date(cal.getTime().getTime()), true, 57.99, community1.getId());
+
+        contractRepository.save(contract1);
+
+        community1.addContract(contract1);
 
         communityRepository.save(community1);
     }

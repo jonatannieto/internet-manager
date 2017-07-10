@@ -40,7 +40,7 @@ public class Resident {
 
     public Resident() {}
 
-    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email) {
+    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Integer communityId) {
         this.nif = nif;
         this.name = name;
         this.surname = surname;
@@ -50,6 +50,7 @@ public class Resident {
         this.stairsRoute = stairsRoute;
         this.phone = phone;
         this.email = email;
+        this.communityId = communityId;
     }
 
     public Integer getId() {

@@ -30,6 +30,9 @@ public class Community {
     @OneToMany
     private List<Resident> residentList;
 
+    @OneToMany
+    private List<Contract> contractList;
+
     private String address;
 
     public Community() {}
@@ -40,6 +43,7 @@ public class Community {
         this.city = city;
         this.address = address;
         this.residentList = new ArrayList<>();
+        this.contractList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -100,5 +104,13 @@ public class Community {
 
     public void addResident(Resident resident) {
         this.residentList.add(resident);
+    }
+
+    public void addContract(Contract contract) {
+        this.contractList.add(contract);
+    }
+
+    public List<Contract> getContractList() {
+        return contractList;
     }
 }

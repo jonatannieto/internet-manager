@@ -13,11 +13,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Residents
+        Contracts
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="#">Residents</a></li>
+        <li class="active"><a href="#">Contracts</a></li>
       </ol>
     </section>
 
@@ -29,7 +29,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <button onclick="window.location.href='/resident/new'" class="btn btn-primary">New</button>
+              <button onclick="window.location.href='/contract/new'" class="btn btn-primary">New</button>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -46,34 +46,20 @@
               <table class="table table-hover">
                 <tr>
                   <th>Id</th>
-                  <th>NIF</th>
                   <th>Name</th>
-                  <th>Surname</th>
-                  <th>Second Surname</th>
-                  <th>Floor</th>
-                  <th>Door</th>
-                  <th>Stairs Route</th>
-                  <th>Phone</th>
-                  <th>Email</th>
+                  <th>Date Start</th>
                   <th>View</th>
                   <th>Edit</th>
                 </tr>
 
-                <tr th:each="resident : ${residents}">
-                  <td th:text="${resident.id}"><a href="/resident/${resident.id}">Id</a></td>
-                  <td th:text="${resident.nif}">NIF</td>
-                  <td th:text="${resident.name}">Resident Name</td>
-                  <td th:text="${resident.surname}">Resident Surname</td>
-                  <td th:text="${resident.secondSurname}">Resident Second Surname</td>
-                  <td th:text="${resident.floor}">Floor</td>
-                  <td th:text="${resident.door}">Door</td>
-                  <td th:text="${resident.stairsRoute}">Stairs Route</td>
-                  <td th:text="${resident.phone}">Phone</td>
-                  <td th:text="${resident.email}">email</td>
+                <tr th:each="contract : ${contracts}">
+                  <td th:text="${contract.id}"><a href="/contract/${contract.id}">Id</a></td>
+                  <td th:text="${contract.name}">Contract Name</td>
+                  <td th:text="${contract.dateStart}">Date Start</td>
+                  <td th:text="${contract.communityId}">Community Id</td>
 
-
-                  <td><a th:href="${ '/resident/' + resident.id}">View</a></td>
-                  <td><a th:href="${'/resident/edit/' + resident.id}">Edit</a></td>
+                  <td><a th:href="${ '/contract/' + contract.id}">View</a></td>
+                  <td><a th:href="${'/contract/edit/' + contract.id}">Edit</a></td>
                 </tr>
               </table>
             </div>
