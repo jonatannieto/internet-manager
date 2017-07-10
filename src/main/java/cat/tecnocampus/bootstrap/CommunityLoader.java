@@ -22,6 +22,7 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository) {
         this.cityRepository = cityRepository;
+
         this.communityRepository = communityRepository;
     }
 

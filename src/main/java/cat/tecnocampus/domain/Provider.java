@@ -1,0 +1,66 @@
+package cat.tecnocampus.domain;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Version;
+
+/**
+ * Created by internet-manager on 10/07/2017.
+ */
+public class Provider {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Version
+    private Integer version;
+
+    private String nif;
+
+    private String name;
+
+    private ProviderType type;
+
+    public Provider() {}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ProviderType getType() {
+        return type;
+    }
+
+    public void setType(ProviderType type) {
+        this.type = type;
+    }
+}
