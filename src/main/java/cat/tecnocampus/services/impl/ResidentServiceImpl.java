@@ -2,6 +2,7 @@ package cat.tecnocampus.services.impl;
 
 import cat.tecnocampus.domain.Resident;
 import cat.tecnocampus.respositories.ResidentRepository;
+import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,13 +11,15 @@ import org.springframework.stereotype.Service;
  * Created by vil883 on 23/04/2017.
  */
 @Service
-public class ResidentImpl implements ResidentService {
+public class ResidentServiceImpl implements ResidentService {
 
     private ResidentRepository residentRepository;
+    private CommunityService communityService;
 
     @Autowired
-    public ResidentImpl(ResidentRepository residentRepository) {
+    public ResidentServiceImpl(ResidentRepository residentRepository, CommunityService communityService) {
         this.residentRepository = residentRepository;
+        this.communityService = communityService;
     }
 
     @Override
@@ -26,7 +29,11 @@ public class ResidentImpl implements ResidentService {
 
     @Override
     public Resident save(Resident resident) {
-        return residentRepository.save(resident);
+        residentRepository.save(resident);
+        if(null!=resident.getCommunityId()){
+            communityService.addResident(resident.getCommunityId(), resident);
+        }
+        return resident;
     }
 
     @Override
