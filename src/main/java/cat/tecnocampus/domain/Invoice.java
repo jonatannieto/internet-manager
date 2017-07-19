@@ -15,7 +15,7 @@ public class Invoice {
     @Version
     private Integer version;
 
-    private Date dateStart;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name="contract_id", nullable=false)
@@ -33,8 +33,8 @@ public class Invoice {
 
     public Invoice() {}
 
-    public Invoice(Date dateStart, Contract contract, Resident resident, Double subtotal, Double vat) {
-        this.dateStart = dateStart;
+    public Invoice(Date date, Contract contract, Resident resident, Double subtotal, Double vat) {
+        this.date = date;
         this.contract = contract;
         this.resident = resident;
         this.subtotal = subtotal;
@@ -58,12 +58,12 @@ public class Invoice {
         this.version = version;
     }
 
-    public Date getDateStart() {
-        return dateStart;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateStart(Date dateStart) {
-        this.dateStart = dateStart;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Contract getContract() {

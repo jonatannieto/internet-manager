@@ -2,6 +2,7 @@ package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
+import cat.tecnocampus.exception.InvoiceStackException;
 import cat.tecnocampus.services.InvoiceService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,12 @@ public class InvoiceController {
     @RequestMapping(value = "/invoices/generate", method = RequestMethod.POST)
     public ModelAndView generateInvoicesForContact(Contract contract, ModelAndView modelAndView){
         modelAndView.addObject("contract", contract);
-        modelAndView.addObject("message", invoiceService.createInvoiceStack(contract));
+        try {
+            modelAndView.addObject("message", invoiceService.createInvoiceStack(contract));
+        } catch (InvoiceStackException e) {
+            modelAndView.addObject("message", e.getMessage());
+            modelAndView.addObject("warning", true);
+        }
         modelAndView.setViewName("contractshow");
 
         return modelAndView;
