@@ -86,7 +86,7 @@ public class Invoice {
     }
 
     public Double getSubtotal() {
-        return subtotal;
+        return round(subtotal, 2);
     }
 
     public void setSubtotal(Double subtotal) {
@@ -102,7 +102,7 @@ public class Invoice {
     }
 
     public Double getTotal() {
-        return total;
+        return round(total, 2);
     }
 
     public void setTotal(Double total) {
@@ -115,5 +115,14 @@ public class Invoice {
 
     public void setPayed(Boolean payed) {
         this.payed = payed;
+    }
+
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }
