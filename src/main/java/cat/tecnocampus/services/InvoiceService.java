@@ -5,7 +5,7 @@ import cat.tecnocampus.domain.Invoice;
 import cat.tecnocampus.exception.InvoiceStackException;
 
 /**
- * Created by Jonatan on 19/07/2017.
+ * Created by Internet-Manager on 19/07/2017.
  */
 public interface InvoiceService {
 

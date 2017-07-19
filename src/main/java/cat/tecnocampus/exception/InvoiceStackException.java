@@ -1,7 +1,7 @@
 package cat.tecnocampus.exception;
 
 /**
- * Created by Jonatan on 19/07/2017.
+ * Created by Internet-Manager on 19/07/2017.
  */
 public class InvoiceStackException extends Exception {
     public InvoiceStackException() { super();}

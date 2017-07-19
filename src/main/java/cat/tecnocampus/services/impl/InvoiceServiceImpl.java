@@ -16,7 +16,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by Jonatan on 19/07/2017.
+ * Created by Internet-Manager on 19/07/2017.
  */
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
