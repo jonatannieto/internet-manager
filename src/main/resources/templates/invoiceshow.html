@@ -105,8 +105,30 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <a href="#" onclick="window.print();" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pay
-          </button>
+          <!--<button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pay
+          </button>-->
+          <a><form action="/invoice/pay" th:object="${invoice}" method="POST">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{version}"/>
+            <input type="hidden" th:field="*{date}"/>
+            <input type="hidden" th:field="*{contract}"/>
+            <input type="hidden" th:field="*{resident}"/>
+            <input type="hidden" th:field="*{subtotal}"/>
+            <input type="hidden" th:field="*{vat}"/>
+            <input type="hidden" th:field="*{total}"/>
+            <input type="hidden" th:field="*{payed}"/>
+
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                    data-amount="2000"
+                    data-name="Stripe.com"
+                    data-description="2 widgets"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-zip-code="true">
+            </script>
+          </form></a>
         </div>
       </div>
     </section>

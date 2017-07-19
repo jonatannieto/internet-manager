@@ -16,4 +16,6 @@ public interface InvoiceService {
     Invoice getInvoiceById(Integer id);
 
     String createInvoiceStack(Contract contract) throws InvoiceStackException;
+
+    void invoicePay(Invoice invoice);
 }

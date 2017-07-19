@@ -64,6 +64,12 @@ public class InvoiceServiceImpl implements InvoiceService{
         }
     }
 
+    @Override
+    public void invoicePay(Invoice invoice) {
+        invoice.setPayed(true);
+        invoiceRepository.save(invoice);
+    }
+
     private Boolean isInvoiceCreated(Contract contract, Resident resident){
         List<Invoice> invoicesByContractAndResident = invoiceRepository.findInvoicesByContractAndResident(contract, resident);
 

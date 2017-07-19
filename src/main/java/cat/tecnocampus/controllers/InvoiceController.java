@@ -78,4 +78,11 @@ public class InvoiceController {
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "/invoice/pay", method = RequestMethod.POST)
+    public String invoicePay(Invoice invoice){
+        invoiceService.invoicePay(invoice);
+
+        return "redirect:/invoice/" + invoice.getId();
+    }
 }
