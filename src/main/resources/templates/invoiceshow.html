@@ -62,6 +62,7 @@
         <div class="col-sm-4 invoice-col">
           <b th:text="'Invoice #' + ${invoice.id}">Invoice #007612</b><br></br>
           <br></br>
+          <td><b>Payment Status:</b></td>
           <td th:if="${invoice.payed} == true"><span class="badge bg-green">Payed</span></td>
           <td th:if="${invoice.payed} == false"><span class="badge bg-red">Pending</span></td>
         </div>
@@ -77,39 +78,18 @@
             <tr>
               <th>Qty</th>
               <th>Product/Service</th>
-              <th>Serial #</th>
-              <th>Description</th>
               <th>Subtotal</th>
+              <th>VAT</th>
+              <th>Total</th>
             </tr>
             </thead>
             <tbody>
             <tr>
               <td>1</td>
-              <td>Call of Duty</td>
-              <td>455-981-221</td>
-              <td>El snort testosterone trophy driving gloves handsome</td>
-              <td>$64.50</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Need for Speed IV</td>
-              <td>247-925-726</td>
-              <td>Wes Anderson umami biodiesel</td>
-              <td>$50.00</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Monsters DVD</td>
-              <td>735-845-642</td>
-              <td>Terry Richardson helvetica tousled street art master</td>
-              <td>$10.70</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Grown Ups Blue Ray</td>
-              <td>422-568-642</td>
-              <td>Tousled lomo letterpress</td>
-              <td>$25.99</td>
+              <td th:text="${invoice.contract.name}">Fibra</td>
+              <td th:text="${invoice.subtotal}">100</td>
+              <td th:text="${invoice.vat}">21</td>
+              <td th:text="${invoice.total}">121</td>
             </tr>
             </tbody>
           </table>
