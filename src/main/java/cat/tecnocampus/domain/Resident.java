@@ -1,6 +1,8 @@
 package cat.tecnocampus.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vil883 on 23/04/2017.
@@ -40,6 +42,10 @@ public class Resident {
     @JoinColumn(name="community_id", nullable=false)
     private Community community;
 
+    /*@OneToMany
+    @JoinColumn(name="r_invoice_id")
+    private List<Invoice> invoices;*/
+
     public Resident() {}
 
     public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community) {
@@ -53,6 +59,7 @@ public class Resident {
         this.phone = phone;
         this.email = email;
         this.community = community;
+//        this.invoices = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -150,5 +157,13 @@ public class Resident {
     public void setCommunity(Community community) {
         this.community = community;
     }
+
+    /*public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }*/
 }
 
