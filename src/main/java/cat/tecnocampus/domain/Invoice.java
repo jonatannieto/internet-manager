@@ -31,6 +31,8 @@ public class Invoice {
 
     private Double total;
 
+    private Boolean payed;
+
     public Invoice() {}
 
     public Invoice(Date date, Contract contract, Resident resident, Double subtotal, Double vat) {
@@ -40,6 +42,7 @@ public class Invoice {
         this.subtotal = subtotal;
         this.vat = vat;
         this.total = subtotal * (1 + (vat/100));
+        this.payed = false;
     }
 
     public Integer getId() {
@@ -104,5 +107,13 @@ public class Invoice {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public Boolean getPayed() {
+        return payed;
+    }
+
+    public void setPayed(Boolean payed) {
+        this.payed = payed;
     }
 }

@@ -1,68 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Invoice</title>
-
   <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-  <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>John Doe</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-
-        <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard v1</a></li>
-
-        <li><a href="../../pages/tables/simple.html"><i class="fa fa-users"></i> Clientes</a></li>
-
-        <li><a href="../../pages/tables/pedidos.html"><i class="fa fa-file-text-o"></i> Pedidos</a></li>
-
-        <li class="active"><a href="../../pages/examples/invoice.html"><i class="fa fa-file-text"></i> Factura</a></li>
-
-        <li><a href="../../pages/examples/profile.html"><i class="fa fa-user"></i> Perfiles Cliente/Empleados</a></li>
-
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+  <!--/*/ <th:block th:include="fragments/menubar :: menu"></th:block> /*/-->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Factura
-        <small>#007612</small>
+        Invoice
+        <small th:text="'#' + ${invoice.id}">#007612</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -77,8 +29,8 @@
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
-            <i class="fa fa-globe"></i> Rey de les Olives
-            <small class="pull-right">Fecha: 2/10/2014</small>
+            <i class="fa fa-globe"></i> <span th:text="${invoice.contract.community.name}"></span>
+            <small class="pull-right" th:text="'Date: ' + ${invoice.date}">2/10/2014</small>
           </h2>
         </div>
         <!-- /.col -->
@@ -86,33 +38,32 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-          De
+          From
           <address>
-            <strong>Rey de les Olives</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (804) 123-5432<br>
-            Email: info@example.com
+            <strong th:text="${invoice.contract.community.name}">Community Name</strong><br></br>
+            <span th:text="${invoice.contract.community.nif}">Nif</span><br></br>
+            <span th:text="${invoice.contract.community.address}">795 Folsom Ave, Suite 600</span><br></br>
+            <span th:text="${invoice.contract.community.city.name}">Mataró</span> (<span th:text="${invoice.contract.community.city.postalcode}"></span>)<br></br>
+            <span th:text="${invoice.contract.community.city.province}">Barcelona</span><br></br>
           </address>
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          A
+          To
           <address>
-            <strong>John Doe</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (555) 539-1037<br>
-            Email: john.doe@example.com
+            <strong th:text="${invoice.resident.name} + ' ' + ${invoice.resident.surname}+ ' ' + ${invoice.resident.secondSurname}">Resident Name</strong><br></br>
+            <span th:text="${invoice.resident.nif}">Nif</span><br></br>
+            Floor: <span th:text="${invoice.resident.floor}">1</span> Door: <span th:text="${invoice.resident.door}">2</span><br></br>
+            <span th:text="${invoice.resident.phone}">Phone</span><br></br>
+            <span th:text="${invoice.resident.email}">Email</span><br></br>
           </address>
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          <b>Invoice #007612</b><br>
-          <br>
-          <b>Order ID:</b> 4F3S8J<br>
-          <b>Payment Due:</b> 2/22/2014<br>
-          <b>Account:</b> 968-34567
+          <b th:text="'Invoice #' + ${invoice.id}">Invoice #007612</b><br></br>
+          <br></br>
+          <td th:if="${invoice.payed} == true"><span class="badge bg-green">Payed</span></td>
+          <td th:if="${invoice.payed} == false"><span class="badge bg-red">Pending</span></td>
         </div>
         <!-- /.col -->
       </div>
@@ -125,7 +76,7 @@
             <thead>
             <tr>
               <th>Qty</th>
-              <th>Product</th>
+              <th>Product/Service</th>
               <th>Serial #</th>
               <th>Description</th>
               <th>Subtotal</th>
@@ -173,11 +124,8 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Imprimir</a>
-          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Aceptar Pago
-          </button>
-          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-download"></i> Generar PDF
+          <a href="#" onclick="window.print();" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pay
           </button>
         </div>
       </div>
@@ -320,7 +268,7 @@
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Report panel usage
-              <input type="checkbox" class="pull-right" checked>
+              <input type="checkbox" class="pull-right" checked="true"/>
             </label>
 
             <p>
@@ -332,7 +280,7 @@
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
+              <input type="checkbox" class="pull-right" checked="true"/>
             </label>
 
             <p>
@@ -344,7 +292,7 @@
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
+              <input type="checkbox" class="pull-right" checked="true"/>
             </label>
 
             <p>
@@ -358,7 +306,7 @@
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Show me as online
-              <input type="checkbox" class="pull-right" checked>
+              <input type="checkbox" class="pull-right" checked="true"/>
             </label>
           </div>
           <!-- /.form-group -->
@@ -366,7 +314,7 @@
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Turn off notifications
-              <input type="checkbox" class="pull-right">
+              <input type="checkbox" class="pull-right"/>
             </label>
           </div>
           <!-- /.form-group -->
