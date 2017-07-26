@@ -6,6 +6,7 @@ import cat.tecnocampus.exception.InvoiceStackException;
 import cat.tecnocampus.services.InvoiceService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice/new")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String newInvoice(Model model){
         model.addAttribute("invoice",  new Invoice());
 
@@ -52,6 +54,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice/edit/{id}")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
 
@@ -59,6 +62,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice", method = RequestMethod.POST )
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String create(Invoice invoice){
         invoiceService.save(invoice);
 
@@ -66,6 +70,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/invoices/generate", method = RequestMethod.POST)
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public ModelAndView generateInvoicesForContact(Contract contract, ModelAndView modelAndView){
         modelAndView.addObject("contract", contract);
         try {

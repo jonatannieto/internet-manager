@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,7 @@ import java.util.List;
  * Created by jnieto on 2/11/15.
  */
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource datasource;
@@ -62,13 +64,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         }
     }*/
 
-    @Override
+    @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 //Usuarios en memoria
                 //ADMIN
-                .withUser("jonatan").password("jona0587").roles("ADMIN", "USER")
+                .withUser("admin").password("admin").roles("ADMIN", "USER")
+                //PRESIDENT
+                .and().withUser("president").password("president").roles("PRESIDENT")
                 //USER
-                .and().withUser("raul").password("t3mp0r4l").roles("USER");
+                .and().withUser("raul").password("raul").roles("USER");
     }
 }

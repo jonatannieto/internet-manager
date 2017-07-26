@@ -5,6 +5,8 @@ import cat.tecnocampus.services.CityService;
 import cat.tecnocampus.services.CommunityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by internet-manager on 11/04/17.
  */
 @Controller
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class CommunityController {
     private CommunityService communityService;
     private CityService cityService;
@@ -31,6 +34,7 @@ public class CommunityController {
 
     /* RequestMapping indica la uri(path) que invoca este método y de que [tipo] debe ser */
     @RequestMapping(value = "/communities", method = RequestMethod.GET)
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public ModelAndView list(ModelAndView modelAndView){
         modelAndView.addObject("communities", communityService.listAllCommunity());
         modelAndView.setViewName("communities");
@@ -40,6 +44,7 @@ public class CommunityController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("community/{id}")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("community", communityService.getCommunityById(id));
         log.info("Returning community: " + id);
@@ -47,6 +52,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community/new")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String newInvoice(Model model){
         model.addAttribute("community", new Community());
         model.addAttribute("cities", cityService.listAllCity());
@@ -54,6 +60,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community/edit/{id}")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("community", communityService.getCommunityById(id));
         model.addAttribute("cities", cityService.listAllCity());
@@ -61,6 +68,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community", method = RequestMethod.POST)
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String create(Community community){
         communityService.save(community);
         return "redirect:/community/" + community.getId();

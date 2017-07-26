@@ -5,6 +5,8 @@ import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by internet-manager on 11/04/17.
  */
 @Controller
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class ResidentController {
     private ResidentService residentService;
     private CommunityService communityService;
@@ -49,6 +52,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident/new")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String newInvoice(Model model){
         model.addAttribute("resident",  new Resident());
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -57,6 +61,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident/edit/{id}")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("resident", residentService.getResidentById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -65,6 +70,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident", method = RequestMethod.POST )
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String create(Resident resident){
         residentService.save(resident);
 

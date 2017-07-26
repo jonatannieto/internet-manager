@@ -6,6 +6,8 @@ import cat.tecnocampus.services.CityService;
 import cat.tecnocampus.services.ProviderService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import java.util.List;
  * Created by internet-manager on 11/04/17.
  */
 @Controller
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class ProviderController {
     private ProviderService providerService;
     private Logger log = Logger.getLogger(ProviderController.class);
@@ -29,6 +32,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "/providers", method = RequestMethod.GET)
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public ModelAndView list(ModelAndView modelAndView){
         modelAndView.addObject("providers", providerService.listAllProvider());
         modelAndView.setViewName("providers");
@@ -37,6 +41,7 @@ public class ProviderController {
     }
 
     @RequestMapping("provider/{id}")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("provider", providerService.getProviderById(id));
         log.info("Returning Provider: " + id);
@@ -44,6 +49,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "provider/new")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String newInvoice(Model model){
         model.addAttribute("provider", new Provider());
         model.addAttribute("providerTypes", providerService.getProviderTypes());
@@ -51,6 +57,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "provider/edit/{id}")
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("provider", providerService.getProviderById(id));
         model.addAttribute("providerTypes", providerService.getProviderTypes());
@@ -58,6 +65,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "provider", method = RequestMethod.POST)
+    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
     public String create(Provider Provider){
         providerService.save(Provider);
         return "redirect:/provider/" + Provider.getId();
