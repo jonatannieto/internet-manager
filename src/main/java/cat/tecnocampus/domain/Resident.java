@@ -42,13 +42,11 @@ public class Resident {
     @JoinColumn(name="community_id", nullable=false)
     private Community community;
 
-    /*@OneToMany
-    @JoinColumn(name="r_invoice_id")
-    private List<Invoice> invoices;*/
+    private Boolean isPresident;
 
     public Resident() {}
 
-    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community) {
+    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community, Boolean isPresident) {
         this.nif = nif;
         this.name = name;
         this.surname = surname;
@@ -59,7 +57,7 @@ public class Resident {
         this.phone = phone;
         this.email = email;
         this.community = community;
-//        this.invoices = new ArrayList<>();
+        this.isPresident = isPresident;
     }
 
     public Integer getId() {
@@ -158,12 +156,12 @@ public class Resident {
         this.community = community;
     }
 
-    /*public List<Invoice> getInvoices() {
-        return invoices;
+    public Boolean getPresident() {
+        return isPresident;
     }
 
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
-    }*/
+    public void setPresident(Boolean president) {
+        isPresident = president;
+    }
 }
 

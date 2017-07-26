@@ -2,6 +2,7 @@ package cat.tecnocampus.bootstrap;
 
 import cat.tecnocampus.domain.*;
 import cat.tecnocampus.respositories.*;
+import cat.tecnocampus.services.ResidentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -19,18 +20,18 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
     private CityRepository cityRepository;
     private CommunityRepository communityRepository;
     private ProviderRepository providerRepository;
-    private ResidentRepository residentRepository;
+    private ResidentService residentService;
     private ContractRepository contractRepository;
 
     private Logger log = Logger.getLogger(CommunityLoader.class);
 
     @Autowired
-    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository, ResidentRepository residentRepository,
+    public CommunityLoader(CityRepository cityRepository, CommunityRepository communityRepository, ProviderRepository providerRepository, ResidentService residentService,
                             ContractRepository contractRepository) {
         this.cityRepository = cityRepository;
         this.communityRepository = communityRepository;
         this.providerRepository = providerRepository;
-        this.residentRepository = residentRepository;
+        this.residentService = residentService;
         this.contractRepository = contractRepository;
     }
 
@@ -64,17 +65,28 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         providerRepository.save(provider1);
         providerRepository.save(provider2);
 
-        Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" , community1);
-        Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com", community1);
+        Resident president1 = new Resident( "77777777F", "Jose", "Palomo", "Lopez", "8", "8", "B",  "934445525", "josepalomo@gmail.com" , community2, true);
+        Resident president2 = new Resident( "00000000P", "Antonio", "Padilla", "Garcia", "7", "7", "A", "934423525" ,  "antoniopadilla@gmail.com", community1, true);
+        Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" , community1, false);
+        Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com", community1, false);
+
+        log.info("Saving president " + president1.getName());
+        residentService.save(president1);
+
+        log.info("Saving president " + president2.getName());
+        residentService.save(president2);
 
         log.info("Saving resident " + resident1.getName());
-        residentRepository.save(resident1);
+        residentService.save(resident1);
 
         log.info("Saving resident " + resident2.getName());
-        residentRepository.save(resident2);
+        residentService.save(resident2);
 
+        community1.addResident(president1);
         community1.addResident(resident1);
         community1.addResident(resident2);
+
+        community2.addResident(president2);
 
         Calendar cal = Calendar.getInstance();
 

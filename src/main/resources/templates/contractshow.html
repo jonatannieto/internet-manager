@@ -48,7 +48,7 @@
                 <input type="hidden" th:field="*{monthlyPrice}"/>
                 <input type="hidden" th:field="*{community}"/>
 
-                <button type="submit" class="btn btn-info" sec:authorize="hasRole({'ROLE_ADMIN','ROLE_PRESIDENT'})">Generate Invoices</button>
+                <button type="submit" class="btn btn-info" sec:authorize="hasRole('ROLE_PRESIDENT')">Generate Invoices</button>
               </form>
             </div>
             <!-- /.box-header -->

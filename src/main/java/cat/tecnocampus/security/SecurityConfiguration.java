@@ -25,8 +25,12 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
     private DataSource datasource;
+
+    @Autowired
+    public SecurityConfiguration(DataSource datasource) {
+        this.datasource = datasource;
+    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -64,16 +68,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             userDetailsService.createUser(userDetails);
         }
     }
-
-   /* @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                //Usuarios en memoria
-                //ADMIN
-                .withUser("admin").password("admin").roles("ADMIN", "USER")
-                //PRESIDENT
-                .and().withUser("president").password("president").roles("PRESIDENT")
-                //USER
-                .and().withUser("raul").password("raul").roles("USER");
-    }*/
 }
