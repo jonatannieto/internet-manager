@@ -46,7 +46,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice/new")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("invoice",  new Invoice());
 
@@ -54,7 +54,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice/edit/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
 
@@ -62,7 +62,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice", method = RequestMethod.POST )
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String create(Invoice invoice){
         invoiceService.save(invoice);
 
@@ -70,7 +70,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/invoices/generate", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public ModelAndView generateInvoicesForContact(Contract contract, ModelAndView modelAndView){
         modelAndView.addObject("contract", contract);
         try {

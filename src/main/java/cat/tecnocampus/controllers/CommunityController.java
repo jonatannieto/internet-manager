@@ -34,7 +34,7 @@ public class CommunityController {
 
     /* RequestMapping indica la uri(path) que invoca este método y de que [tipo] debe ser */
     @RequestMapping(value = "/communities", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public ModelAndView list(ModelAndView modelAndView){
         modelAndView.addObject("communities", communityService.listAllCommunity());
         modelAndView.setViewName("communities");
@@ -44,7 +44,7 @@ public class CommunityController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("community/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("community", communityService.getCommunityById(id));
         log.info("Returning community: " + id);
@@ -52,7 +52,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community/new")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("community", new Community());
         model.addAttribute("cities", cityService.listAllCity());
@@ -60,7 +60,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community/edit/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("community", communityService.getCommunityById(id));
         model.addAttribute("cities", cityService.listAllCity());
@@ -68,7 +68,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String create(Community community){
         communityService.save(community);
         return "redirect:/community/" + community.getId();

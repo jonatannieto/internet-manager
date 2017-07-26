@@ -52,7 +52,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident/new")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("resident",  new Resident());
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -61,7 +61,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident/edit/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("resident", residentService.getResidentById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -70,7 +70,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident", method = RequestMethod.POST )
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String create(Resident resident){
         residentService.save(resident);
 

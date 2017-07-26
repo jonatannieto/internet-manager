@@ -51,7 +51,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "contract/new")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("contract",  new Contract());
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -60,7 +60,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "contract/edit/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("contract", contractService.getContractById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -69,7 +69,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "contract", method = RequestMethod.POST )
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String create(Contract contract){
         contractService.save(contract);
 

@@ -32,7 +32,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "/providers", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public ModelAndView list(ModelAndView modelAndView){
         modelAndView.addObject("providers", providerService.listAllProvider());
         modelAndView.setViewName("providers");
@@ -41,7 +41,7 @@ public class ProviderController {
     }
 
     @RequestMapping("provider/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("provider", providerService.getProviderById(id));
         log.info("Returning Provider: " + id);
@@ -49,7 +49,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "provider/new")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("provider", new Provider());
         model.addAttribute("providerTypes", providerService.getProviderTypes());
@@ -57,7 +57,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "provider/edit/{id}")
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("provider", providerService.getProviderById(id));
         model.addAttribute("providerTypes", providerService.getProviderTypes());
@@ -65,7 +65,7 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "provider", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN","ROLE_PRESIDENT"})
+    @Secured("ROLE_PRESIDENT")
     public String create(Provider Provider){
         providerService.save(Provider);
         return "redirect:/provider/" + Provider.getId();

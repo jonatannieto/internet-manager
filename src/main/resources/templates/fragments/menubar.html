@@ -278,11 +278,11 @@
 
                 <li class="active"><a href="/"><i class="fa fa-dashboard"></i> Dashboard v1</a></li>
 
-                <li sec:authorize="hasRole({'ROLE_ADMIN','ROLE_PRESIDENT'})"><a href="/communities"><i class="fa fa-users"></i> Communities</a></li>
+                <li sec:authorize="hasRole('ROLE_PRESIDENT')"><a href="/communities"><i class="fa fa-users"></i> Communities</a></li>
 
                 <li><a href="/residents"><i class="fa fa-user"></i> Residents</a></li>
 
-                <li sec:authorize="hasRole({'ROLE_ADMIN','ROLE_PRESIDENT'})"><a href="/providers"><i class="fa fa-wifi"></i> Providers</a></li>
+                <li sec:authorize="hasRole('ROLE_PRESIDENT')"><a href="/providers"><i class="fa fa-wifi"></i> Providers</a></li>
 
                 <li><a href="/contracts"><i class="fa fa-file-text"></i> Contracts</a></li>
 

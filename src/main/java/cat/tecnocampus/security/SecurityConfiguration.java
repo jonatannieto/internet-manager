@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bootstrap/**", "/build/**", "/dist/**", "/images/**", "/less/**", "/plugins/**");
     }
 
-    /*@Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
         userDetailsService.setDataSource(datasource);
@@ -55,16 +55,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
         auth.jdbcAuthentication().dataSource(datasource);
 
-        if(!userDetailsService.userExists("user")) {
-            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            authorities.add(new SimpleGrantedAuthority("USER"));
-            User userDetails = new User("user", encoder.encode("password"), authorities);
+        if(!userDetailsService.userExists("admin")) {
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_PRESIDENT"));
+            User userDetails = new User("admin", encoder.encode("admin"), authorities);
 
             userDetailsService.createUser(userDetails);
         }
-    }*/
+    }
 
-    @Autowired
+   /* @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 //Usuarios en memoria
@@ -74,5 +75,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().withUser("president").password("president").roles("PRESIDENT")
                 //USER
                 .and().withUser("raul").password("raul").roles("USER");
-    }
+    }*/
 }
