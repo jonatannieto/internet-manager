@@ -2,6 +2,7 @@ package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
+import cat.tecnocampus.exception.InvoiceException;
 import cat.tecnocampus.exception.InvoiceStackException;
 import cat.tecnocampus.services.InvoiceService;
 import org.apache.log4j.Logger;
@@ -39,7 +40,7 @@ public class InvoiceController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("invoice/{id}")
-    public String showProduct(@PathVariable Integer id, Model model){
+    public String showProduct(@PathVariable Integer id, Model model) throws InvoiceException {
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
         log.info("Returning invoice: " + id);
         return "invoiceshow";
@@ -55,7 +56,7 @@ public class InvoiceController {
 
     @RequestMapping(value = "invoice/edit/{id}")
     @Secured("ROLE_PRESIDENT")
-    public String edit(@PathVariable Integer id, Model model){
+    public String edit(@PathVariable Integer id, Model model) throws InvoiceException {
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
 
         return "invoiceform";

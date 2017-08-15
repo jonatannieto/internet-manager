@@ -1,6 +1,7 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Contract;
+import cat.tecnocampus.exception.ContractException;
 import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ContractService;
 import org.apache.log4j.Logger;
@@ -44,7 +45,7 @@ public class ContractController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("contract/{id}")
-    public String showProduct(@PathVariable Integer id, Model model){
+    public String showProduct(@PathVariable Integer id, Model model) throws ContractException {
         model.addAttribute("contract", contractService.getContractById(id));
         log.info("Returning contract: " + id);
         return "contractshow";
@@ -61,7 +62,7 @@ public class ContractController {
 
     @RequestMapping(value = "contract/edit/{id}")
     @Secured("ROLE_PRESIDENT")
-    public String edit(@PathVariable Integer id, Model model){
+    public String edit(@PathVariable Integer id, Model model) throws ContractException {
         model.addAttribute("contract", contractService.getContractById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
 

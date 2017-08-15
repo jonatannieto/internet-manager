@@ -1,6 +1,7 @@
 package cat.tecnocampus.services.impl;
 
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.ResidentException;
 import cat.tecnocampus.respositories.ResidentRepository;
 import cat.tecnocampus.respositories.UserRepositoy;
 import cat.tecnocampus.services.CommunityService;
@@ -62,8 +63,28 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public Resident getResidentById(Integer id) {
-        return residentRepository.findOne(id);
+    public Resident getResidentById(Integer id) throws ResidentException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        Resident resident = residentRepository.findOne(id);
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return resident;
+            }
+        }
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("PRESIDENT")){
+                if (currentResident.getCommunity().equals(resident.getCommunity())) return resident;
+                else throw new ResidentException("Not allowed, can not access to this resident.");
+            }
+        }
+
+        if (currentResident.getCommunity().equals(resident.getEmail())) return resident;
+        else throw new ResidentException("Not allowed, can not access to this resident.");
     }
 
     private void createUser(Resident resident) {

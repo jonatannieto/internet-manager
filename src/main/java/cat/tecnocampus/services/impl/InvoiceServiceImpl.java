@@ -4,6 +4,7 @@ import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.InvoiceException;
 import cat.tecnocampus.exception.InvoiceStackException;
 import cat.tecnocampus.respositories.InvoiceRepository;
 import cat.tecnocampus.respositories.ResidentRepository;
@@ -67,8 +68,28 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public Invoice getInvoiceById(Integer id) {
-        return invoiceRepository.findOne(id);
+    public Invoice getInvoiceById(Integer id) throws InvoiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        Invoice invoice = invoiceRepository.findOne(id);
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return invoice;
+            }
+        }
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("PRESIDENT")){
+                if (currentResident.getCommunity().equals(invoice.getResident().getCommunity())) return invoice;
+                else throw new InvoiceException("Not allowed, can not access to this invoice.");
+            }
+        }
+
+        if (currentResident.getCommunity().equals(invoice.getResident().getEmail())) return invoice;
+        else throw new InvoiceException("Not allowed, can not access to this invoice.");
     }
 
     @Override

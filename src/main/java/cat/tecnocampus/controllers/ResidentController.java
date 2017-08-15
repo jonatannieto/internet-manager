@@ -1,6 +1,8 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.CommunityException;
+import cat.tecnocampus.exception.ResidentException;
 import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.log4j.Logger;
@@ -44,7 +46,7 @@ public class ResidentController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("resident/{id}")
-    public String showProduct(@PathVariable Integer id, Model model){
+    public String showProduct(@PathVariable Integer id, Model model) throws CommunityException, ResidentException {
         model.addAttribute("resident", residentService.getResidentById(id));
         model.addAttribute("community", communityService.getCommunityById(residentService.getResidentById(id).getCommunity().getId()));
         log.info("Returning resident: " + id);
@@ -62,7 +64,7 @@ public class ResidentController {
 
     @RequestMapping(value = "resident/edit/{id}")
     @Secured("ROLE_PRESIDENT")
-    public String edit(@PathVariable Integer id, Model model){
+    public String edit(@PathVariable Integer id, Model model) throws ResidentException {
         model.addAttribute("resident", residentService.getResidentById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
 

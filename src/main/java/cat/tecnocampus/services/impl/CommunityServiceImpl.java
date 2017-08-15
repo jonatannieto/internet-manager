@@ -3,6 +3,7 @@ package cat.tecnocampus.services.impl;
 import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.CommunityException;
 import cat.tecnocampus.respositories.CommunityRepository;
 import cat.tecnocampus.respositories.ResidentRepository;
 import cat.tecnocampus.services.CommunityService;
@@ -55,8 +56,21 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public Community getCommunityById(Integer id) {
-        return communityRepository.findOne(id);
+    public Community getCommunityById(Integer id) throws CommunityException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        Community community = communityRepository.findOne(id);
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return community;
+            }
+        }
+
+        if (currentResident.getCommunity().equals(community)) return community;
+        else throw new CommunityException("Not allowed, can not access to this community.");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Community;
+import cat.tecnocampus.exception.CommunityException;
 import cat.tecnocampus.services.CityService;
 import cat.tecnocampus.services.CommunityService;
 import org.apache.log4j.Logger;
@@ -45,7 +46,7 @@ public class CommunityController {
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("community/{id}")
     @Secured("ROLE_PRESIDENT")
-    public String showProduct(@PathVariable Integer id, Model model){
+    public String showProduct(@PathVariable Integer id, Model model) throws CommunityException {
         model.addAttribute("community", communityService.getCommunityById(id));
         log.info("Returning community: " + id);
         return "communityshow";
@@ -61,7 +62,7 @@ public class CommunityController {
 
     @RequestMapping(value = "community/edit/{id}")
     @Secured("ROLE_PRESIDENT")
-    public String edit(@PathVariable Integer id, Model model){
+    public String edit(@PathVariable Integer id, Model model) throws CommunityException {
         model.addAttribute("community", communityService.getCommunityById(id));
         model.addAttribute("cities", cityService.listAllCity());
         return "communityform";
