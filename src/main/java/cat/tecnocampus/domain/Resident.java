@@ -36,6 +36,7 @@ public class Resident {
 
     private String phone;
 
+   @Column(unique = true)
     private String email;
 
     @ManyToOne

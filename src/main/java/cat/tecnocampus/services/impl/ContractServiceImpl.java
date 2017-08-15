@@ -2,11 +2,20 @@ package cat.tecnocampus.services.impl;
 
 import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
+import cat.tecnocampus.domain.Resident;
 import cat.tecnocampus.respositories.ContractRepository;
+import cat.tecnocampus.respositories.ResidentRepository;
 import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Internet-Manager on 10/07/2017.
@@ -15,17 +24,28 @@ import org.springframework.stereotype.Service;
 public class ContractServiceImpl implements ContractService {
 
     private ContractRepository contractRepository;
-    private CommunityService communityService;
+    private ResidentRepository residentRepository;
 
     @Autowired
-    public ContractServiceImpl(ContractRepository contractRepository, CommunityService communityService) {
+    public ContractServiceImpl(ContractRepository contractRepository, ResidentRepository residentRepository) {
         this.contractRepository = contractRepository;
-        this.communityService = communityService;
+        this.residentRepository = residentRepository;
     }
 
     @Override
     public Iterable<Contract> listAllContracts() {
-        return contractRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return contractRepository.findAll();
+            }
+        }
+
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        return contractRepository.findByCommunity(currentResident.getCommunity());
     }
 
     @Override

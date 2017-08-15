@@ -1,5 +1,6 @@
 package cat.tecnocampus.respositories;
 
+import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
 import cat.tecnocampus.domain.Resident;
@@ -14,4 +15,6 @@ import java.util.List;
 public interface InvoiceRepository extends CrudRepository<Invoice, Integer> {
     @Query("SELECT i FROM Invoice i WHERE i.contract = ?1 AND i.resident = ?2")
     List<Invoice> findInvoicesByContractAndResident(Contract contract, Resident resident);
+
+    List<Invoice> findByResident(Resident currentResident);
 }

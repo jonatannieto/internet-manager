@@ -6,9 +6,12 @@ import cat.tecnocampus.respositories.UserRepositoy;
 import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +19,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,7 +41,18 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     public Iterable<Resident> listAllResident() {
-        return residentRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return residentRepository.findAll();
+            }
+        }
+
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        return residentRepository.findByCommunity(currentResident.getCommunity());
     }
 
     @Override
