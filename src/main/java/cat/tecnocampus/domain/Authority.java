@@ -3,7 +3,7 @@ package cat.tecnocampus.domain;
 import javax.persistence.*;
 
 /**
- * Created by Jonatan on 26/07/2017.
+ * Created by internet-manager on 26/07/2017.
  */
 @Entity(name = "authorities")
 public class Authority {

@@ -2,8 +2,6 @@ package cat.tecnocampus.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Internet-Manager on 10/07/2017.

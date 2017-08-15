@@ -1,8 +1,6 @@
 package cat.tecnocampus.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by vil883 on 23/04/2017.

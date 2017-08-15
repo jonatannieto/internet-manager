@@ -1,9 +1,11 @@
 package cat.tecnocampus.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Version;
 
 /**
- * Created by Jonatan on 26/07/2017.
+ * Created by internet-manager on 26/07/2017.
  */
 @Entity(name = "users")
 public class User {

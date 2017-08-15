@@ -1,6 +1,5 @@
 package cat.tecnocampus.services.impl;
 
-import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
 import cat.tecnocampus.domain.Resident;

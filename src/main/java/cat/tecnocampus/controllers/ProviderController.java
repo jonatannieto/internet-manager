@@ -1,7 +1,6 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Provider;
-import cat.tecnocampus.domain.ProviderType;
 import cat.tecnocampus.services.CityService;
 import cat.tecnocampus.services.ProviderService;
 import org.apache.log4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 /**
  * Created by internet-manager on 11/04/17.

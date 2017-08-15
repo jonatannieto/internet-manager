@@ -1,7 +1,7 @@
 package cat.tecnocampus.exception;
 
 /**
- * Created by Jonatan on 15/08/2017.
+ * Created by internet-manager on 15/08/2017.
  */
 public class ResidentException extends Exception {
     public ResidentException() { super();}

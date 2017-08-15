@@ -1,7 +1,10 @@
 package cat.tecnocampus.bootstrap;
 
 import cat.tecnocampus.domain.*;
-import cat.tecnocampus.respositories.*;
+import cat.tecnocampus.respositories.CityRepository;
+import cat.tecnocampus.respositories.CommunityRepository;
+import cat.tecnocampus.respositories.ContractRepository;
+import cat.tecnocampus.respositories.ProviderRepository;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
