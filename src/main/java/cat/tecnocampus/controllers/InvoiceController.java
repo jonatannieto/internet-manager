@@ -2,10 +2,12 @@ package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
+import cat.tecnocampus.exception.InvoiceException;
 import cat.tecnocampus.exception.InvoiceStackException;
 import cat.tecnocampus.services.InvoiceService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,13 +40,14 @@ public class InvoiceController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("invoice/{id}")
-    public String showProduct(@PathVariable Integer id, Model model){
+    public String showProduct(@PathVariable Integer id, Model model) throws InvoiceException {
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
         log.info("Returning invoice: " + id);
         return "invoiceshow";
     }
 
     @RequestMapping(value = "invoice/new")
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("invoice",  new Invoice());
 
@@ -52,13 +55,15 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "invoice/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    @Secured("ROLE_PRESIDENT")
+    public String edit(@PathVariable Integer id, Model model) throws InvoiceException {
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
 
         return "invoiceform";
     }
 
     @RequestMapping(value = "invoice", method = RequestMethod.POST )
+    @Secured("ROLE_PRESIDENT")
     public String create(Invoice invoice){
         invoiceService.save(invoice);
 
@@ -66,6 +71,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/invoices/generate", method = RequestMethod.POST)
+    @Secured("ROLE_PRESIDENT")
     public ModelAndView generateInvoicesForContact(Contract contract, ModelAndView modelAndView){
         modelAndView.addObject("contract", contract);
         try {

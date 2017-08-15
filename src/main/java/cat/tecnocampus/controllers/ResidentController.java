@@ -1,10 +1,14 @@
 package cat.tecnocampus.controllers;
 
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.CommunityException;
+import cat.tecnocampus.exception.ResidentException;
 import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by internet-manager on 11/04/17.
  */
 @Controller
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class ResidentController {
     private ResidentService residentService;
     private CommunityService communityService;
@@ -41,7 +46,7 @@ public class ResidentController {
 
     /* PathVariable indica que Spring va a coger del path un valor, en este caso el id */
     @RequestMapping("resident/{id}")
-    public String showProduct(@PathVariable Integer id, Model model){
+    public String showProduct(@PathVariable Integer id, Model model) throws CommunityException, ResidentException {
         model.addAttribute("resident", residentService.getResidentById(id));
         model.addAttribute("community", communityService.getCommunityById(residentService.getResidentById(id).getCommunity().getId()));
         log.info("Returning resident: " + id);
@@ -49,6 +54,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident/new")
+    @Secured("ROLE_PRESIDENT")
     public String newInvoice(Model model){
         model.addAttribute("resident",  new Resident());
         model.addAttribute("communities", communityService.listAllCommunity());
@@ -57,7 +63,8 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    @Secured("ROLE_PRESIDENT")
+    public String edit(@PathVariable Integer id, Model model) throws ResidentException {
         model.addAttribute("resident", residentService.getResidentById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
 
@@ -65,6 +72,7 @@ public class ResidentController {
     }
 
     @RequestMapping(value = "resident", method = RequestMethod.POST )
+    @Secured("ROLE_PRESIDENT")
     public String create(Resident resident){
         residentService.save(resident);
 

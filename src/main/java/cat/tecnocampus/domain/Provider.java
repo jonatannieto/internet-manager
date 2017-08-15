@@ -14,6 +14,7 @@ public class Provider {
     @Version
     private Integer version;
 
+    @Column(unique = true)
     private String nif;
 
     private String name;

@@ -2,6 +2,7 @@ package cat.tecnocampus.services;
 
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
+import cat.tecnocampus.exception.InvoiceException;
 import cat.tecnocampus.exception.InvoiceStackException;
 
 /**
@@ -13,7 +14,7 @@ public interface InvoiceService {
 
     Invoice save(Invoice invoice);
 
-    Invoice getInvoiceById(Integer id);
+    Invoice getInvoiceById(Integer id) throws InvoiceException;
 
     String createInvoiceStack(Contract contract) throws InvoiceStackException;
 

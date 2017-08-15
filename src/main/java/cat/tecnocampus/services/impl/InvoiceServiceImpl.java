@@ -1,18 +1,23 @@
 package cat.tecnocampus.services.impl;
 
-import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.domain.Invoice;
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.InvoiceException;
 import cat.tecnocampus.exception.InvoiceStackException;
 import cat.tecnocampus.respositories.InvoiceRepository;
+import cat.tecnocampus.respositories.ResidentRepository;
 import cat.tecnocampus.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,15 +26,39 @@ import java.util.List;
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
     private InvoiceRepository invoiceRepository;
+    private ResidentRepository residentRepository;
 
     @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository) {
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, ResidentRepository residentRepository) {
         this.invoiceRepository = invoiceRepository;
+        this.residentRepository = residentRepository;
     }
 
     @Override
     public Iterable<Invoice> listAllInvoices() {
-        return invoiceRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return invoiceRepository.findAll();
+            }
+        }
+
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("PRESIDENT")){
+                List<Invoice> invoices = new ArrayList<>();
+                for (Resident resident : currentResident.getCommunity().getResidentList()) {
+                    invoices.addAll(invoiceRepository.findByResident(resident));
+                }
+                return invoices;
+            }
+        }
+
+        return invoiceRepository.findByResident(currentResident);
     }
 
     @Override
@@ -38,8 +67,28 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public Invoice getInvoiceById(Integer id) {
-        return invoiceRepository.findOne(id);
+    public Invoice getInvoiceById(Integer id) throws InvoiceException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        Invoice invoice = invoiceRepository.findOne(id);
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return invoice;
+            }
+        }
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("PRESIDENT")){
+                if (currentResident.getCommunity().equals(invoice.getResident().getCommunity())) return invoice;
+                else throw new InvoiceException("Not allowed, can not access to this invoice.");
+            }
+        }
+
+        if (currentResident.getCommunity().equals(invoice.getResident().getEmail())) return invoice;
+        else throw new InvoiceException("Not allowed, can not access to this invoice.");
     }
 
     @Override

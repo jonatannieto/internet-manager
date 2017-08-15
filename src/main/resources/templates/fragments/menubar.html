@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head lang="en">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
@@ -8,7 +8,7 @@
 <div class="container" th:fragment="menu">
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>I</b>MG</span>
             <!-- logo for regular state and mobile devices -->
@@ -220,40 +220,21 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                            <span class="hidden-xs">John Doe</span>
+                            <span class="hidden-xs" sec:authentication="name">John Doe</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
 
-                                <p>
-                                    John Doe - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                <p sec:authentication="name">
+                                    John Doe
                                 </p>
-                            </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="/logout" class="btn btn-default btn-flat">Log out</a>
                                 </div>
                             </li>
                         </ul>
@@ -276,7 +257,7 @@
                     <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
                 </div>
                 <div class="pull-left info">
-                    <p>John Doe</p>
+                    <p sec:authentication="name">John Doe</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -297,11 +278,11 @@
 
                 <li class="active"><a href="/"><i class="fa fa-dashboard"></i> Dashboard v1</a></li>
 
-                <li><a href="/communities"><i class="fa fa-users"></i> Communities</a></li>
+                <li sec:authorize="hasRole('ROLE_PRESIDENT')"><a href="/communities"><i class="fa fa-users"></i> Communities</a></li>
 
                 <li><a href="/residents"><i class="fa fa-user"></i> Residents</a></li>
 
-                <li><a href="/providers"><i class="fa fa-wifi"></i> Providers</a></li>
+                <li sec:authorize="hasRole('ROLE_PRESIDENT')"><a href="/providers"><i class="fa fa-wifi"></i> Providers</a></li>
 
                 <li><a href="/contracts"><i class="fa fa-file-text"></i> Contracts</a></li>
 

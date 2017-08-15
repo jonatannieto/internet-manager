@@ -14,4 +14,6 @@ import java.util.List;
 public interface InvoiceRepository extends CrudRepository<Invoice, Integer> {
     @Query("SELECT i FROM Invoice i WHERE i.contract = ?1 AND i.resident = ?2")
     List<Invoice> findInvoicesByContractAndResident(Contract contract, Resident resident);
+
+    List<Invoice> findByResident(Resident currentResident);
 }
