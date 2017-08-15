@@ -68,8 +68,8 @@ public class CommunityLoader implements ApplicationListener<ContextRefreshedEven
         providerRepository.save(provider1);
         providerRepository.save(provider2);
 
-        Resident president1 = new Resident( "77777777F", "Jose", "Palomo", "Lopez", "8", "8", "B",  "934445525", "josepalomo@gmail.com" , community2, true);
-        Resident president2 = new Resident( "00000000P", "Antonio", "Padilla", "Garcia", "7", "7", "A", "934423525" ,  "antoniopadilla@gmail.com", community1, true);
+        Resident president1 = new Resident( "77777777F", "Jose", "Palomo", "Lopez", "8", "8", "B",  "934445525", "presiden2t@gmail.com" , community2, true);
+        Resident president2 = new Resident( "00000000P", "Antonio", "Padilla", "Garcia", "7", "7", "A", "934423525" ,  "president1@gmail.com", community1, true);
         Resident resident1 = new Resident( "47475225F", "Jordi", "Mas", "Martinez", "1", "2", "B",  "934445525", "jordi@api.com" , community1, false);
         Resident resident2 = new Resident( "47475229P", "Juan", "Eloy", "Marquez", "3", "5", "A", "934423525" ,  "eloy@api.com", community1, false);
 
