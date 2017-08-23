@@ -98,7 +98,7 @@ public class ResidentServiceImpl implements ResidentService {
                 authorities.add(new SimpleGrantedAuthority("ROLE_PRESIDENT"));
             }
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            User userDetails = new User(resident.getEmail(), encoder.encode("1234"), authorities);
+            User userDetails = new User(resident.getEmail(), encoder.encode(resident.getPassword()), authorities);
 
             userDetailsService.createUser(userDetails);
         }

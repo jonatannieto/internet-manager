@@ -34,7 +34,7 @@ public class Resident {
 
     private String phone;
 
-   @Column(unique = true)
+    @Column(unique = true)
     private String email;
 
     @ManyToOne
@@ -43,9 +43,11 @@ public class Resident {
 
     private Boolean president;
 
+    private String password;
+
     public Resident() {}
 
-    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community, Boolean president) {
+    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community, Boolean president, String password) {
         this.nif = nif;
         this.name = name;
         this.surname = surname;
@@ -57,6 +59,7 @@ public class Resident {
         this.email = email;
         this.community = community;
         this.president = president;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -161,6 +164,14 @@ public class Resident {
 
     public void setPresident(Boolean president) {
         this.president = president;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 
