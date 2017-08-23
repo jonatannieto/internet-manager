@@ -39,9 +39,9 @@ public class Invoice {
         this.date = date;
         this.contract = contract;
         this.resident = resident;
-        this.subtotal = subtotal;
+        this.subtotal = subtotal * (1 - (vat/100));
         this.vat = vat;
-        this.total = subtotal * (1 + (vat/100));
+        this.total = subtotal;
         this.payed = false;
     }
 
