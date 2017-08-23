@@ -27,14 +27,19 @@ public class Contract {
     @JoinColumn(name="community_id", nullable=false)
     private Community community;
 
+    @ManyToOne
+    @JoinColumn(name="provider_id", nullable=false)
+    private Provider provider;
+
     public Contract() {}
 
-    public Contract(String name, Date dateStart, Boolean active, Double monthlyPrice, Community community) {
+    public Contract(String name, Date dateStart, Boolean active, Double monthlyPrice, Community community, Provider provider) {
         this.name = name;
         this.dateStart = dateStart;
         this.active = active;
         this.monthlyPrice = monthlyPrice;
         this.community = community;
+        this.provider = provider;
     }
 
     public Integer getId() {
@@ -91,5 +96,13 @@ public class Contract {
 
     public void setMonthlyPrice(Double monthlyPrice) {
         this.monthlyPrice = monthlyPrice;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }

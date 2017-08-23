@@ -4,6 +4,7 @@ import cat.tecnocampus.domain.Contract;
 import cat.tecnocampus.exception.ContractException;
 import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ContractService;
+import cat.tecnocampus.services.ProviderService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Provider;
+
 /**
  * Created by internet-manager on 11/04/17.
  */
@@ -23,15 +26,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class ContractController {
     private ContractService contractService;
     private CommunityService communityService;
+    private ProviderService providerService;
 
     private Logger log = Logger.getLogger(ContractController.class);
 
     /* La inyección de dependencias hacen que entre las capas no se acople el código, el FW ya se encarga de inyectar el
      * servicio que toca en cada caso, seguimos la D de los principios SOLID, donde inyectamos interfaces, no implementaciones.*/
     @Autowired
-    public ContractController(ContractService contractService, CommunityService communityService) {
+    public ContractController(ContractService contractService, CommunityService communityService, ProviderService providerService) {
         this.contractService = contractService;
         this.communityService = communityService;
+        this.providerService = providerService;
     }
 
     /* RequestMapping indica la uri(path) que invoca este método y de que [tipo] debe ser */
@@ -56,6 +61,7 @@ public class ContractController {
     public String newInvoice(Model model){
         model.addAttribute("contract",  new Contract());
         model.addAttribute("communities", communityService.listAllCommunity());
+        model.addAttribute("providers", providerService.listAllProvider());
 
         return "contractform";
     }
@@ -65,6 +71,7 @@ public class ContractController {
     public String edit(@PathVariable Integer id, Model model) throws ContractException {
         model.addAttribute("contract", contractService.getContractById(id));
         model.addAttribute("communities", communityService.listAllCommunity());
+        model.addAttribute("providers", providerService.listAllProvider());
 
         return "contractform";
     }
