@@ -41,11 +41,11 @@ public class Resident {
     @JoinColumn(name="community_id", nullable=false)
     private Community community;
 
-    private Boolean isPresident;
+    private Boolean president;
 
     public Resident() {}
 
-    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community, Boolean isPresident) {
+    public Resident(String nif, String name, String surname, String secondSurname, String floor, String door, String stairsRoute, String phone, String email, Community community, Boolean president) {
         this.nif = nif;
         this.name = name;
         this.surname = surname;
@@ -56,7 +56,7 @@ public class Resident {
         this.phone = phone;
         this.email = email;
         this.community = community;
-        this.isPresident = isPresident;
+        this.president = president;
     }
 
     public Integer getId() {
@@ -156,11 +156,11 @@ public class Resident {
     }
 
     public Boolean getPresident() {
-        return isPresident;
+        return president;
     }
 
     public void setPresident(Boolean president) {
-        isPresident = president;
+        this.president = president;
     }
 }
 

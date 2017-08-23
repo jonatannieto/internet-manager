@@ -94,7 +94,9 @@ public class ResidentServiceImpl implements ResidentService {
 
             List<GrantedAuthority> authorities = new ArrayList<>();
             //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            if(resident.getPresident()==true) authorities.add(new SimpleGrantedAuthority("ROLE_PRESIDENT"));
+            if(resident.getPresident()==true){
+                authorities.add(new SimpleGrantedAuthority("ROLE_PRESIDENT"));
+            }
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             User userDetails = new User(resident.getEmail(), encoder.encode("1234"), authorities);
 
