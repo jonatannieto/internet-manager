@@ -1,5 +1,6 @@
 package cat.tecnocampus.controllers;
 
+import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Resident;
 import cat.tecnocampus.exception.CommunityException;
 import cat.tecnocampus.exception.ResidentException;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -77,5 +79,11 @@ public class ResidentController {
         residentService.save(resident);
 
         return "redirect:/resident/" + resident.getId();
+    }
+
+    @RequestMapping(value = "residents/count/community/{id}")
+    @ResponseBody
+    public String countByCommunity(@PathVariable Integer id) throws CommunityException {
+        return residentService.getResidentCountByCommunity(id).toString();
     }
 }

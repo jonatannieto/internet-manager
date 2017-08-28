@@ -1,6 +1,7 @@
 package cat.tecnocampus.services;
 
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.CommunityException;
 import cat.tecnocampus.exception.ResidentException;
 
 /**
@@ -15,4 +16,6 @@ public interface ResidentService {
     Resident getResidentById(Integer id) throws ResidentException;
 
     Long getResidentCount();
+
+    Long getResidentCountByCommunity(Integer id) throws CommunityException;
 }

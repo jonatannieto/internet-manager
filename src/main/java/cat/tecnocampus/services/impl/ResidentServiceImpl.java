@@ -1,9 +1,12 @@
 package cat.tecnocampus.services.impl;
 
+import cat.tecnocampus.domain.Community;
 import cat.tecnocampus.domain.Resident;
+import cat.tecnocampus.exception.CommunityException;
 import cat.tecnocampus.exception.ResidentException;
 import cat.tecnocampus.respositories.ResidentRepository;
 import cat.tecnocampus.respositories.UserRepositoy;
+import cat.tecnocampus.services.CommunityService;
 import cat.tecnocampus.services.ResidentService;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +33,14 @@ public class ResidentServiceImpl implements ResidentService {
     private ResidentRepository residentRepository;
     private DataSource datasource;
     private UserRepositoy userRepositoy;
+    private CommunityService communityService;
 
     @Autowired
-    public ResidentServiceImpl(ResidentRepository residentRepository, DataSource datasource, UserRepositoy userRepositoy) {
+    public ResidentServiceImpl(ResidentRepository residentRepository, DataSource datasource, UserRepositoy userRepositoy, CommunityService communityService) {
         this.residentRepository = residentRepository;
         this.datasource = datasource;
         this.userRepositoy = userRepositoy;
+        this.communityService = communityService;
     }
 
     @Override
@@ -99,6 +104,13 @@ public class ResidentServiceImpl implements ResidentService {
 
         Resident currentResident = residentRepository.findByEmail(currentUser);
         return residentRepository.countByCommunity(currentResident.getCommunity());
+    }
+
+    @Override
+    public Long getResidentCountByCommunity(Integer id) throws CommunityException {
+        Community community = communityService.getCommunityById(id);
+
+        return residentRepository.countByCommunity(community);
     }
 
     private void createUser(Resident resident) {
