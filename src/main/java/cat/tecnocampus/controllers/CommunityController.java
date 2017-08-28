@@ -53,7 +53,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community/new")
-    @Secured("ROLE_PRESIDENT")
+    @Secured("ROLE_ADMIN")
     public String newInvoice(Model model){
         model.addAttribute("community", new Community());
         model.addAttribute("cities", cityService.listAllCity());
@@ -69,7 +69,7 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "community", method = RequestMethod.POST)
-    @Secured("ROLE_PRESIDENT")
+    @Secured("ROLE_ADMIN")
     public String create(Community community){
         communityService.save(community);
         return "redirect:/community/" + community.getId();
