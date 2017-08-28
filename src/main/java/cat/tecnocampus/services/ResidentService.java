@@ -13,4 +13,6 @@ public interface ResidentService {
     Resident save(Resident resident);
 
     Resident getResidentById(Integer id) throws ResidentException;
+
+    Long getResidentCount();
 }

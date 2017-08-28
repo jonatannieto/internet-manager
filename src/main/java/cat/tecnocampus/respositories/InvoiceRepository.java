@@ -6,6 +6,7 @@ import cat.tecnocampus.domain.Resident;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -16,4 +17,8 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Integer> {
     List<Invoice> findInvoicesByContractAndResident(Contract contract, Resident resident);
 
     List<Invoice> findByResident(Resident currentResident);
+
+    Long countByResidentAndPayed(Resident resident, Boolean payed);
+
+    Long countByPayed(boolean payed);
 }

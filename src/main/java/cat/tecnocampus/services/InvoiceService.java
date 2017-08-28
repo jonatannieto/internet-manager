@@ -19,4 +19,6 @@ public interface InvoiceService {
     String createInvoiceStack(Contract contract) throws InvoiceStackException;
 
     void invoicePay(Invoice invoice);
+
+    Long getPendingInvoices();
 }

@@ -17,4 +17,6 @@ public interface ProviderService {
     Provider getProviderById(Integer id);
 
     List<ProviderType> getProviderTypes();
+
+    Long getProvidersCount();
 }

@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface ContractRepository extends JpaRepository<Contract, Integer>, JpaSpecificationExecutor {
     Iterable<Contract> findByCommunity(Community community);
+    Long countByCommunity(Community community);
 }

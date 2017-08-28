@@ -67,4 +67,20 @@ public class ContractServiceImpl implements ContractService {
         if (currentResident.getCommunity().equals(contract.getCommunity())) return contract;
         else throw new ContractException("Not allowed, can not access to this contract.");
     }
+
+    @Override
+    public Long getContractsCount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return contractRepository.count();
+            }
+        }
+
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        return contractRepository.countByCommunity(currentResident.getCommunity());
+    }
 }

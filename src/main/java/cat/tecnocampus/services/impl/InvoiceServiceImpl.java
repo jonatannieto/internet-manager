@@ -119,6 +119,33 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoiceRepository.save(invoice);
     }
 
+    @Override
+    public Long getPendingInvoices() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return invoiceRepository.countByPayed(false);
+            }
+        }
+
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("PRESIDENT")){
+                Long totalInvoicesPending = 0l;
+                for (Resident resident : currentResident.getCommunity().getResidentList()) {
+                    totalInvoicesPending =  totalInvoicesPending + invoiceRepository.countByResidentAndPayed(resident, false);
+                }
+                return totalInvoicesPending;
+            }
+        }
+
+        return invoiceRepository.countByResidentAndPayed(currentResident, false);
+    }
+
     private Boolean isInvoiceCreated(Contract contract, Resident resident){
         List<Invoice> invoicesByContractAndResident = invoiceRepository.findInvoicesByContractAndResident(contract, resident);
 

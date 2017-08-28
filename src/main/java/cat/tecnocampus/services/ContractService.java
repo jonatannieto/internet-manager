@@ -12,4 +12,6 @@ public interface ContractService {
     Contract save(Contract contract);
 
     Contract getContractById(Integer id) throws ContractException;
+
+    Long getContractsCount();
 }

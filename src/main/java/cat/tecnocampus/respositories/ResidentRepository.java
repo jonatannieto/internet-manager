@@ -13,4 +13,6 @@ public interface ResidentRepository extends CrudRepository<Resident, Integer> {
     Resident findByEmail(String email);
 
     List<Resident> findByCommunity(Community community);
+
+    Long countByCommunity(Community community);
 }

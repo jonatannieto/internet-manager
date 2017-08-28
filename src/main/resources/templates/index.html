@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
@@ -30,14 +30,14 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3 th:text="${providersCount}">150</h3>
 
-              <p>Pedidos</p>
+              <p>Providers</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="ion ion-ios-world-outline"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/providers" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -45,14 +45,14 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3 th:text="${contractsCount}">53</h3>
 
-              <p>Ratio mensual</p>
+              <p>Contracts</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-clipboard"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/contracts" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -60,14 +60,14 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3 th:text="${residentsCount}">44</h3>
 
-              <p>Clientes</p>
+              <p>Residents</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/residents" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -75,14 +75,14 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3 th:text="${pendingInvoicesCount}">65</h3>
 
-              <p>Facturas pendientes</p>
+              <p>Pending invoices</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/invoices" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

@@ -85,6 +85,22 @@ public class ResidentServiceImpl implements ResidentService {
         else throw new ResidentException("Not allowed, can not access to this resident.");
     }
 
+    @Override
+    public Long getResidentCount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("ADMIN")){
+                return residentRepository.count();
+            }
+        }
+
+        Resident currentResident = residentRepository.findByEmail(currentUser);
+        return residentRepository.countByCommunity(currentResident.getCommunity());
+    }
+
     private void createUser(Resident resident) {
         if(userRepositoy.findOne(resident.getEmail())==null){
             JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();

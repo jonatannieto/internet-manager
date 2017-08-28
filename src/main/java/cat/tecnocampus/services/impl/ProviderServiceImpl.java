@@ -45,4 +45,9 @@ public class ProviderServiceImpl implements ProviderService {
         }
         return providerTypes;
     }
+
+    @Override
+    public Long getProvidersCount() {
+        return providerRepository.count();
+    }
 }
