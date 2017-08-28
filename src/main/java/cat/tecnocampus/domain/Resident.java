@@ -1,6 +1,7 @@
 package cat.tecnocampus.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by vil883 on 23/04/2017.
