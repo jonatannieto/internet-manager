@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by Internet-Manager on 19/07/2017.
+ * Created by internet-manager on 19/07/2017.
  */
 @Controller
 public class InvoiceController {
