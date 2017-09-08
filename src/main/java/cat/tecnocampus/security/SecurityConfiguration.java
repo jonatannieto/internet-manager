@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jnieto on 2/11/15.
+ * Created by internet-manager on 22/08/17.
  */
 @Configuration
 @EnableWebSecurity
