@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
- * Created by Internet-Manager on 10/07/2017.
+ * Created by internet-manager on 10/07/2017.
  */
 public interface ContractRepository extends JpaRepository<Contract, Integer>, JpaSpecificationExecutor {
     Iterable<Contract> findByCommunity(Community community);
