@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Internet-Manager on 19/07/2017.
+ * Created by internet-manager on 19/07/2017.
  */
 @Entity
 public class Invoice {
