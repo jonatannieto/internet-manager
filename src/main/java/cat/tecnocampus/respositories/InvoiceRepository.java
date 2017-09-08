@@ -6,11 +6,10 @@ import cat.tecnocampus.domain.Resident;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Internet-Manager on 19/07/2017.
+ * Created by internet-manager on 19/07/2017.
  */
 public interface InvoiceRepository extends CrudRepository<Invoice, Integer> {
     @Query("SELECT i FROM Invoice i WHERE i.contract = ?1 AND i.resident = ?2")
